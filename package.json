@@ -1,0 +1,19 @@
+{
+  "name": "blog-api",
+  "version": "1.0.0",
+  "description": "Full stack application express api server with react client front ends to view blogs post comments and edit/create posts.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "@prisma/client": "^5.22.0",
+    "prisma": "^5.22.0"
+  }
+}
