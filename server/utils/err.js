@@ -2,7 +2,7 @@
 class BadRequestError extends Error {
   constructor(message){
     super(message);
-    this.statuscode = 400;
+    this.statusCode = 400;
     this.name = "BadRequestError";
   }
 }
@@ -11,7 +11,7 @@ class BadRequestError extends Error {
 class UnauthorizedError extends Error {
   constructor(message){
     super(message);
-    this.statuscode = 401;
+    this.statusCode = 401;
     this.name = "UnauthorizedError";
   }
 }
@@ -20,7 +20,7 @@ class UnauthorizedError extends Error {
 class ForbiddenError extends Error {
   constructor(message){
     super(message);
-    this.statuscode = 403;
+    this.statusCode = 403;
     this.name = "ForbiddenError";
   }
 }
@@ -29,7 +29,7 @@ class ForbiddenError extends Error {
 class NotFoundError extends Error {
   constructor(message){
     super(message);
-    this.statuscode = 404;
+    this.statusCode = 404;
     this.name = "NotFoundError";
   }
 }
@@ -38,7 +38,7 @@ class NotFoundError extends Error {
 class InternalServerError extends Error {
   constructor(message){
     super(message);
-    this.statuscode = 500;
+    this.statusCode = 500;
     this.name = "InternalServerError";
   }
 }

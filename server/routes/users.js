@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const userRouter = Router();
-const { createNewUser } = require("../controllers/usersController.js");
+const { createNewUser, updateUser } = require("../controllers/usersController.js");
 
 
 userRouter.get("/", (req, res) => {
@@ -9,9 +9,7 @@ userRouter.get("/", (req, res) => {
 
 userRouter.post("/", createNewUser);
 
-userRouter.put("/", (req, res) => {
-  res.send("Users PUT request");
-});
+userRouter.put("/", updateUser);
 
 userRouter.delete("/", (req, res) => {
   res.send("Users DELETE request");
