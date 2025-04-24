@@ -94,7 +94,7 @@ async function readUserData(req, user, next) {
 }
 
 async function deleteUser(req, user, next) {
-  const {id} = req.body;
+  const { id } = req.body;
 
   try {
     const response = await prisma.user.delete({
@@ -105,7 +105,7 @@ async function deleteUser(req, user, next) {
     console.log("successful deletion!", response);
     res.json(response);
 
-  }catch(err){
+  } catch (err) {
     return next(new InternalServerError(err.message));
   }
 }
