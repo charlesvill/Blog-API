@@ -1,11 +1,11 @@
 const express = require("express");
 require("dotenv").config();
 
-
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.SERVER_PORT || 5000;
 const path = require("path");
 const prisma = require("../prisma/prisma.js");
 const { NotFoundError } = require("./utils/err.js");
+const { logInRouter } = require("./routes/log-in.js");
 const userRouter = require("./routes/users.js");
 
 const app = express();
@@ -19,6 +19,7 @@ app.get("/", (req, res) => {
     message: "you are coming to us live from index",
   });
 });
+app.use("/log-in", logInRouter);
 
 app.use("/users", userRouter);
 // app.get("/blog", async(req, res) => {
