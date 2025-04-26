@@ -5,11 +5,13 @@ const PORT = process.env.SERVER_PORT || 5000;
 const path = require("path");
 const passport = require("./authentication/passport-config.js");
 const { NotFoundError } = require("./utils/err.js");
-const { logInRouter } = require("./routes/log-in.js");
+const logInRouter = require("./routes/log-in.js");
+const postRouter = require("./routes/posts.js");
 const userRouter = require("./routes/users.js");
 
 const app = express();
 const assetsPath = path.join(__dirname, "public");
+
 app.use(express.static(assetsPath));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -23,6 +25,7 @@ app.get("/", (req, res) => {
 app.use("/log-in", logInRouter);
 
 app.use("/users", userRouter);
+app.use("/posts", postRouter);
 
 
 app.use((req, res, next) => {
