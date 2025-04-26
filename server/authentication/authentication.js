@@ -28,21 +28,19 @@ async function authenticateUser(req, res, next) {
     }
     const opts = {}
     const secret = process.env.JWT_SECRET;
-    console.log("secret: ", secret)
     opts.expiresIn = 120;
-    const token = jwt.sign({ username }, secret, opts);
+    // jwt sign token and respond with token
+    const token = jwt.sign({ sub: user.id }, secret, opts);
 
     return res.status(200).json({
       message: "Auth passed",
       token,
     });
-    // jwt sign token and repond with token
 
   } catch (err) {
     return next(new InternalServerError(err.message));
   }
-  // compare hash
-  // generate token
 }
+
 
 module.exports = { authenticateUser };

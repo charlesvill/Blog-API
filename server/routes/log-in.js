@@ -6,4 +6,5 @@ const { authenticateUser } = require("../authentication/authentication.js")
 logInRouter.post("/", authenticateUser);
 
 
+
 module.exports = { logInRouter };

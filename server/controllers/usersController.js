@@ -111,5 +111,7 @@ async function deleteUser(req, user, next) {
 }
 module.exports = {
   createNewUser,
-  updateUser
+  updateUser,
+  readUserData,
+  deleteUser
 };
