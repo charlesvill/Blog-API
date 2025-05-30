@@ -1,8 +1,8 @@
 import { useContext } from "react"
-import { Context } from "../App";
+import { Authorization } from "../utilities/authProvider";
 
 export default function HomePage () {
-  const {user, mode} = useContext(Context);
+  const {user, mode} = useContext(Authorization);
 
   return (
     <>
