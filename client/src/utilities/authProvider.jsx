@@ -8,15 +8,44 @@ export function AuthProvider({ children }) {
   const [mode, setMode] = useState("");
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
-
+  
   useEffect(() => {
-    // store token in ls
-    localStorage.setItem("token", token);
-  }, [token]);
+    const fetchData = async () => {
+      try {
+        const response = await fetch(url, {
+          method: "GET",
+          headers: {
+            "Authorization": `Bearer ${token}`,
+          },
+          mode: 'cors',
+        });
 
-  // login function sets token and sets user
+        if (!response.ok) {
+          throw new Error(response.status);
+        }
 
-  // will need to import the url from login 
+        const json = await response.json();
+        console.dir("user fetch from token: ", json);
+        console.log(json)
+        setUser(json);
+        localStorage.setItem("token", token);
+      } catch (error) {
+        console.error("Fetch error:", error);
+      }
+    };
+
+    if (token) {
+      fetchData();
+    }
+  }, [token]); // dependency array here
+  //useEffect() only on mount of component and on token change
+  // checks if token present, does nothing if no token
+  // with provided url and token requests the user object
+  // adds user object to the useContext 
+  const url = "http://localhost:5000/users";
+
+
+
   const login = async (url, data) => {
     try {
       setLoading(true);
@@ -40,24 +69,17 @@ export function AuthProvider({ children }) {
           setLoading(false);
         }
       });
-
     } catch (error) {
       console.error(error);
     }
   }
-
-
-  // return the context provider with the children in the middle if no loading or error
-
 
   return (
     <>
       <Authorization.Provider value={{ user, mode, setToken, login }}>
         {!loading && children}
       </Authorization.Provider>
-
     </>
-
   )
 
 }
