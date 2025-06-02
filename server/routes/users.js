@@ -4,10 +4,10 @@ const { createNewUser, updateUser } = require("../controllers/usersController.js
 const passport = require("../authentication/passport-config.js");
 
 
+
 userRouter.get("/", passport.authenticate('jwt', {session: false}), (req, res) => {
-
-  res.send("coming to you live from an validated path!");
-
+  console.log(req.user);
+  res.json(req.user);
 });
 
 userRouter.post("/", createNewUser);

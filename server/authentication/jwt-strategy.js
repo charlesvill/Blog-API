@@ -20,7 +20,7 @@ module.exports = new JwtStrategy(opts, async (jwt_payload, done) => {
       }
 
       console.log("we have  a successful jwt verification on a route!");
-      return done(null, true);
+      return done(null, user);
     } catch (err) {
       return done(err, false);
     }
