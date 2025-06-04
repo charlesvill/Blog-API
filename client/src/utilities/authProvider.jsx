@@ -2,17 +2,20 @@ import { useState, createContext, useEffect } from 'react'
 
 export const Authorization = createContext();
 
+
 export function AuthProvider({ children }) {
-  const [token, setToken] = useState(localStorage.getItem("token" || ""));
+  const [token, setToken] = useState(localStorage.getItem("token") || "");
   const [user, setUser] = useState(null);
   const [mode, setMode] = useState("");
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
-  
+
+  const getUserUrl = import.meta.env.VITE_LOCAL_GET_USER;
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(url, {
+        const response = await fetch(getUserUrl, {
           method: "GET",
           headers: {
             "Authorization": `Bearer ${token}`,
@@ -25,24 +28,20 @@ export function AuthProvider({ children }) {
         }
 
         const json = await response.json();
-        console.dir("user fetch from token: ", json);
+        console.dir("user fetch from token: ");
         console.log(json)
         setUser(json);
         localStorage.setItem("token", token);
-      } catch (error) {
-        console.error("Fetch error:", error);
+      } catch (err) {
+        console.error("Fetch error:", err);
+        setError(err);
       }
     };
 
     if (token) {
       fetchData();
     }
-  }, [token]); // dependency array here
-  //useEffect() only on mount of component and on token change
-  // checks if token present, does nothing if no token
-  // with provided url and token requests the user object
-  // adds user object to the useContext 
-  const url = "http://localhost:5000/users";
+  }, [token]);
 
 
 
@@ -74,9 +73,17 @@ export function AuthProvider({ children }) {
     }
   }
 
+  const logOut = (next = null) => {
+    localStorage.removeItem("token");
+    setToken(null)
+    setUser(null);
+    // redirect or navigate?
+    return next && next;
+  }
+
   return (
     <>
-      <Authorization.Provider value={{ user, mode, setToken, login }}>
+      <Authorization.Provider value={{ user, mode, setToken, login, logOut }}>
         {!loading && children}
       </Authorization.Provider>
     </>

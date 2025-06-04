@@ -3,8 +3,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { AuthProvider } from './utilities/authProvider.jsx'
 import { Login } from './utilities/login.jsx'
 import HomePage from './endUser/homepage.jsx'
-import ProtectedRoute from './utilities/ProtectedRoute.jsx'
-import TestAdmin from './publisher/testadmin.jsx'
+import { Dashboard } from './publisher/dashboard/dashboard.jsx'
 
 const router = createBrowserRouter([
   {
@@ -18,9 +17,8 @@ const router = createBrowserRouter([
   {
     path: "/admin",
     element: (
-      <ProtectedRoute>
-        <TestAdmin />
-      </ProtectedRoute>
+      <Dashboard />
+      // will need to make a protected route wrapper component bc I delted it
     ),
   },
 ]);
