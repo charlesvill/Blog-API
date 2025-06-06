@@ -1,6 +1,8 @@
+import styles from "./sideNavbar.module.css"
+
 export const SideNav = () => {
   return (
-    <div>
+    <div className={styles.navContainer}>
         nav container
       <div>
         nav wrapper for padding

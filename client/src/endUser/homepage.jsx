@@ -9,7 +9,7 @@ export default function HomePage() {
       Homepage
 
       <div>
-        user: {user.first_name}
+        user: {user && user.first_name}
         <div>
           mode: {mode}
         </div>

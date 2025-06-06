@@ -1,6 +1,8 @@
+import styles from "./header.module.css"
+
 export const Header = () => {
   return (
-    <div>
+    <div className={styles.headerCont}>
       <div>
         wrapper for padding
         <div>

@@ -1,15 +1,16 @@
-import { Header } from "./header"
-import { SideNav } from "./sideNavbar"
+import { Header } from "./header/header.jsx"
+import { SideNav } from "./sideNav/sideNavbar.jsx"
 import { PostCard } from "./postCard"
 import { Announcements } from "./announcements"
+import styles from "./dashboard.module.css"
 
 export const Dashboard = () => {
   return (
-    <div>
+    <div className={styles.dashCont}>
       dashboard container
       <SideNav />
       <Header />
-      <div>
+      <div className={styles.contentCont}>
         content container
         <div>
           left side (3 fractions grid-template column)
