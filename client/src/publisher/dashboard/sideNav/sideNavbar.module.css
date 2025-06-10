@@ -1,5 +1,24 @@
 .navContainer {
   grid-column: 1 / 2;
   grid-row: 1 / 3;
-
+  border: white solid 1px;
+  padding: .5rem;
 }
+
+.headerContainer{
+  display: flex;
+  gap: .3rem;
+}
+
+.linkContainer {
+  margin-bottom: 2.5rem;
+  margin-top: 2rem;
+}
+.link {
+  display: flex;
+  gap: .5rem;
+}
+.link > svg {
+  width: 1.3rem;
+}
+

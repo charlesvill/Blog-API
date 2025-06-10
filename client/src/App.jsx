@@ -1,9 +1,9 @@
-import './App.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { AuthProvider } from './utilities/authProvider.jsx'
 import { Login } from './utilities/login.jsx'
 import HomePage from './endUser/homepage.jsx'
 import { Dashboard } from './publisher/dashboard/dashboard.jsx'
+import './index.css'
 
 const router = createBrowserRouter([
   {
@@ -26,11 +26,9 @@ const router = createBrowserRouter([
 function App() {
 
   return (
-    <>
       <AuthProvider>
         <RouterProvider router={router} />
       </AuthProvider>
-    </>
   )
 }
 

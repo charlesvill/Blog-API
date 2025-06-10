@@ -2,10 +2,44 @@
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
   grid-template-rows: 1fr 4fr;
-  background-color: black;
+  background-color: grey;
 }
+
 .contentCont {
   grid-column: 2 / 4;
   grid-row: 2 / 3;
+  border: white solid 1px;
 }
 
+.projectContainer {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.projectCard {
+  background-color: #e2e8f0;
+  color: grey;
+  justify-self: stretch;
+  margin: .5rem;
+  align-self: stretch;
+  border-radius: 8px;
+  padding: 1.5rem;
+  padding-top: 1.5rem;
+  padding-left: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-left: 9px solid #967bb6;
+  box-shadow:
+    0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
+}
+
+
+.projectButtonCont {
+  display: flex;
+
+}
+
+.projectButtonCont>svg {
+  width: 1.3rem;
+}
