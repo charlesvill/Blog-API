@@ -1,4 +1,4 @@
-import { useState, createContext, useEffect } from 'react'
+import { useState, createContext, useEffect, useMemo } from 'react'
 
 export const Authorization = createContext();
 
@@ -7,7 +7,7 @@ export function AuthProvider({ children }) {
   const [token, setToken] = useState(localStorage.getItem("token") || "");
   const [user, setUser] = useState(null);
   const [mode, setMode] = useState("");
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
   const getUserUrl = import.meta.env.VITE_LOCAL_GET_USER;
@@ -15,6 +15,7 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true);
         const response = await fetch(getUserUrl, {
           method: "GET",
           headers: {
@@ -29,8 +30,9 @@ export function AuthProvider({ children }) {
 
         const json = await response.json();
         console.dir("user fetch from token: ");
-        console.log(json)
+        console.log(json);
         setUser(json);
+        setLoading(false);
         localStorage.setItem("token", token);
       } catch (err) {
         console.error("Fetch error:", err);
@@ -42,7 +44,6 @@ export function AuthProvider({ children }) {
       fetchData();
     }
   }, [token]);
-
 
 
   const login = async (url, data) => {
@@ -81,9 +82,13 @@ export function AuthProvider({ children }) {
     return next && next;
   }
 
+  const authContextValue = useMemo(() => ({
+    user, mode, setToken, login, logOut
+  }), [user, mode, setToken, login, logOut]);
+
   return (
     <>
-      <Authorization.Provider value={{ user, mode, setToken, login, logOut }}>
+      <Authorization.Provider value={authContextValue}>
         {!loading && children}
       </Authorization.Provider>
     </>
