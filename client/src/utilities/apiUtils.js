@@ -1,17 +1,25 @@
 export async function apiFetch(
   url,
   method = "GET",
-  headerKey = "Content-Type",
-  headerProperty = "application/json"
+  headers = {"Content-Type": "application/json"},
+  body = null
 ) {
+  const options = {
+    method,
+    headers: {
+      ...headers
+    },
+    mode: 'cors',
+  };
+
+  if(body && method.toUpperCase() !== 'GET'){
+    options.body = JSON.stringify(body);
+  }
+
   try {
-    const response = await fetch(url, {
-      method: method,
-      headers: {
-        [headerKey]: headerProperty,
-      },
-      mode: 'cors',
-    });
+    console.log("url: ", url);
+
+    const response = await fetch(url, options);
 
     if (!response.ok) {
       throw new Error(response.status);

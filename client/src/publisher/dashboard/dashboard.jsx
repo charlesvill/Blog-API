@@ -11,9 +11,8 @@ import { Authorization } from "../../utilities/authProvider.jsx"
 
 export const Dashboard = () => {
 
-  const { user } = useContext(Authorization);
+  const { user, loading, setLoading } = useContext(Authorization);
   const [posts, setPosts] = useState(null);
-  const [loading, setLoading] = useState(false);
 
 
   useEffect(() => {
@@ -30,7 +29,7 @@ export const Dashboard = () => {
     }
     setLoading(true);
     fetchData();
-  }, []);
+  }, [user]);
 
 
 

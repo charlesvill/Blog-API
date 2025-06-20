@@ -1,4 +1,5 @@
 import { useState, createContext, useEffect, useMemo } from 'react'
+import { apiFetch } from './apiUtils';
 
 export const Authorization = createContext();
 
@@ -7,15 +8,17 @@ export function AuthProvider({ children }) {
   const [token, setToken] = useState(localStorage.getItem("token") || "");
   const [user, setUser] = useState(null);
   const [mode, setMode] = useState("");
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
+  const [loading, setLoading] = useState(false);
+  const [initializing, setInitializing] = useState(true);
+  const [error, setError] = useState(null);
 
   const getUserUrl = import.meta.env.VITE_LOCAL_GET_USER;
+
+  console.log("this is the root of the AuthProvider");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setLoading(true);
         const response = await fetch(getUserUrl, {
           method: "GET",
           headers: {
@@ -25,7 +28,15 @@ export function AuthProvider({ children }) {
         });
 
         if (!response.ok) {
-          throw new Error(response.status);
+          //jweb token expires need to reauthenticate
+          if (response.status === 401) {
+            setLoading(false);
+            setInitializing(false);
+            return logOut();
+          }
+          setLoading(false);
+          setInitializing(false);
+          setError("response code: " + response.status);
         }
 
         const json = await response.json();
@@ -33,6 +44,7 @@ export function AuthProvider({ children }) {
         console.log(json);
         setUser(json);
         setLoading(false);
+        setInitializing(false);
         localStorage.setItem("token", token);
       } catch (err) {
         console.error("Fetch error:", err);
@@ -40,51 +52,42 @@ export function AuthProvider({ children }) {
       }
     };
 
-    if (token) {
-      fetchData();
-    }
+    console.log("this should be triggering before the authenticate path");
+    setInitializing(true);
+    setLoading(true);
+    fetchData();
   }, [token]);
-
 
   const login = async (url, data) => {
     try {
       setLoading(true);
-      const response = await fetch(
-        url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data),
-        mode: 'cors'
-      }).then(async (response) => {
-        if (!response.ok) {
-          throw new Error(response.status);
-        } else {
-          const json = await response.json();
-          // update to userInput state when finished. 
-          console.dir(json);
-          setToken(json.token);
-          setUser(json.user);
-          setLoading(false);
-        }
-      });
+      const response = await apiFetch(
+        url,
+        "POST",
+        { "Content-Type": "application/json" },
+        data
+      );
+
+      setToken(response.token);
+      setUser(response.user);
+      setLoading(false);
     } catch (error) {
       console.error(error);
     }
   }
 
-  const logOut = (next = null) => {
+  const logOut = () => {
     localStorage.removeItem("token");
-    setToken(null)
+    setToken(null);
     setUser(null);
     // redirect or navigate?
-    return next && next;
+    return;
   }
 
   const authContextValue = useMemo(() => ({
-    user, mode, setToken, login, logOut
-  }), [user, mode, setToken, login, logOut]);
+    user, mode, setToken, login, logOut, loading, setLoading, initializing, setInitializing,
+  }), [user, mode, loading, initializing]);
+
 
   return (
     <>
