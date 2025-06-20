@@ -1,4 +1,6 @@
-export const PostCard = ({ post }) => {
+import styles from './postBadge.module.css'
+
+export const PostBadge = ({ post }) => {
   const textLength = 150;
   const condensedText = post.content.slice(0, textLength);
 

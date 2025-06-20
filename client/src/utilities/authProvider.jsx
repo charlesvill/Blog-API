@@ -63,9 +63,9 @@ export function AuthProvider({ children }) {
       setLoading(true);
       const response = await apiFetch(
         url,
+        null,
+        data,
         "POST",
-        { "Content-Type": "application/json" },
-        data
       );
 
       setToken(response.token);
@@ -85,8 +85,8 @@ export function AuthProvider({ children }) {
   }
 
   const authContextValue = useMemo(() => ({
-    user, mode, setToken, login, logOut, loading, setLoading, initializing, setInitializing,
-  }), [user, mode, loading, initializing]);
+    user, mode, token, setToken, login, logOut, loading, setLoading, initializing, setInitializing,
+  }), [user, mode, token, loading, initializing]);
 
 
   return (

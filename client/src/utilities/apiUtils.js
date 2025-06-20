@@ -1,13 +1,15 @@
 export async function apiFetch(
   url,
+  token = null,
+  body = null,
   method = "GET",
   headers = {"Content-Type": "application/json"},
-  body = null
 ) {
   const options = {
     method,
     headers: {
-      ...headers
+      ...headers,
+      Authorization: token && `Bearer ${token}`, 
     },
     mode: 'cors',
   };

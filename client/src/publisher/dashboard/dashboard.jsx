@@ -1,9 +1,9 @@
 import { Header } from "./header/header.jsx"
 import { SideNav } from "./sideNav/sideNavbar.jsx"
-import { PostCard } from "./postCard"
 import { Announcements } from "./announcements"
 import styles from "./dashboard.module.css"
 import { useState, useEffect, useContext } from "react"
+import { Outlet } from "react-router-dom"
 import { apiFetch, clientHostName, serverHostName } from "../../utilities/apiUtils.js"
 import { Authorization } from "../../utilities/authProvider.jsx"
 
@@ -41,8 +41,7 @@ export const Dashboard = () => {
       <Header />
       <div className={styles.contentCont}>
         content container
-        <p>Your Projects</p>
-        {posts && posts.map(post => <PostCard post={post} />)}
+        <Outlet context={{ posts }} />
       </div>
     </div>
   )
