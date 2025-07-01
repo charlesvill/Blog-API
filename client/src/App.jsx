@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom'
 import { AuthProvider } from './utilities/authProvider.jsx'
 import { Authorization } from './utilities/authProvider.jsx'
 import { useContext } from 'react'
+import { ErrorBoundary } from './utilities/errorBoundary.jsx'
 import { Login } from './utilities/login.jsx'
 import HomePage from './endUser/homepage.jsx'
 import { Dashboard } from './publisher/dashboard/dashboard.jsx'
@@ -18,6 +19,7 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
+    errorElement: <ErrorBoundary />
   },
   {
     path: "/admin",

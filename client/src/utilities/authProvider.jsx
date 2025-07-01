@@ -1,5 +1,6 @@
 import { useState, createContext, useEffect, useMemo } from 'react'
 import { apiFetch } from './apiUtils';
+import { ErrorBoundary } from './errorBoundary';
 
 export const Authorization = createContext();
 
@@ -39,6 +40,7 @@ export function AuthProvider({ children }) {
           setError("response code: " + response.status);
         }
 
+        console.log("response status: ", response.status);
         const json = await response.json();
         console.dir("user fetch from token: ");
         console.log(json);
@@ -68,11 +70,18 @@ export function AuthProvider({ children }) {
         "POST",
       );
 
+      if (response instanceof Error) {
+        setError(response);
+        console.log(error);
+        throw new Error(response);
+      }
+
       setToken(response.token);
       setUser(response.user);
       setLoading(false);
     } catch (error) {
       console.error(error);
+      setError(error);
     }
   }
 
@@ -85,14 +94,15 @@ export function AuthProvider({ children }) {
   }
 
   const authContextValue = useMemo(() => ({
-    user, mode, token, setToken, login, logOut, loading, setLoading, initializing, setInitializing,
-  }), [user, mode, token, loading, initializing]);
+    user, mode, token, setToken, login, logOut, loading, setLoading, initializing, setInitializing, error, setError
+  }), [user, mode, token, loading, initializing, error]);
 
 
   return (
     <>
       <Authorization.Provider value={authContextValue}>
-        {!loading && children}
+        {error ? <ErrorBoundary error={error} /> : (!loading && children)}
+        {/* {!loading && (!error ? children : <ErrorBoundary error={error} />)} */}
       </Authorization.Provider>
     </>
   )

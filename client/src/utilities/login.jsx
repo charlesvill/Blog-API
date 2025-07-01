@@ -4,7 +4,7 @@ import { Authorization } from "../utilities/authProvider";
 
 export const Login = () => {
   const [userInput, setUserInput] = useState({ username: "", password: "" });
-  const { login, user } = useContext(Authorization);
+  const { login, user, error } = useContext(Authorization);
 
   function handleUpdate(e) {
     // on every input change, the component needs to re-render to show updated user input
@@ -36,6 +36,7 @@ export const Login = () => {
       </form>
       <div>
         {user && user.first_name}
+        {error && error.message}
       </div>
     </div>
   )

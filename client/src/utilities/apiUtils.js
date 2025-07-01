@@ -32,6 +32,7 @@ export async function apiFetch(
     return json;
   } catch (err) {
     console.error("Fetch error:", err);
+    return err;
   }
 }
 
