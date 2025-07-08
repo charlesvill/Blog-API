@@ -15,8 +15,6 @@ export function AuthProvider({ children }) {
 
   const getUserUrl = import.meta.env.VITE_LOCAL_GET_USER;
 
-  console.log("this is the root of the AuthProvider");
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -47,6 +45,7 @@ export function AuthProvider({ children }) {
         setUser(json);
         setLoading(false);
         setInitializing(false);
+        setError(null)
         localStorage.setItem("token", token);
       } catch (err) {
         console.error("Fetch error:", err);
@@ -54,14 +53,12 @@ export function AuthProvider({ children }) {
       }
     };
 
-    console.log("this should be triggering before the authenticate path");
     setInitializing(true);
     setLoading(true);
     fetchData();
   }, [token]);
 
   const login = async (url, data) => {
-    try {
       setLoading(true);
       const response = await apiFetch(
         url,
@@ -70,14 +67,18 @@ export function AuthProvider({ children }) {
         "POST",
       );
 
+    if(response instanceof Error){
+
+      const errMsg = response.message === "400" ? "Username or password incorrect" : "Other Error Occurred";
+      logOut();
+      setError(errMsg);
+      setLoading(false);
+      return new Error(errMsg);
+    }
+
       setToken(response.token);
       setUser(response.user);
       setLoading(false);
-    } catch (error) {
-      console.error(error);
-      setError(error);
-      return error;
-    }
   }
 
   const logOut = () => {
@@ -96,7 +97,7 @@ export function AuthProvider({ children }) {
   return (
     <>
       <Authorization.Provider value={authContextValue}>
-        {error ? <ErrorBoundary error={error} /> : (!loading && children)}
+        {/* error ? <ErrorBoundary error={error} /> : */ (!loading && children)}
         {/* {!loading && (!error ? children : <ErrorBoundary error={error} />)} */}
       </Authorization.Provider>
     </>
