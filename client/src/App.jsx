@@ -3,6 +3,7 @@ import { AuthProvider } from './utilities/authProvider.jsx'
 import { Authorization } from './utilities/authProvider.jsx'
 import { useContext } from 'react'
 import { ErrorBoundary } from './utilities/errorBoundary.jsx'
+import { NotFound } from './utilities/notFound.jsx'
 import { Login } from './utilities/login.jsx'
 import HomePage from './endUser/homepage.jsx'
 import { Dashboard } from './publisher/dashboard/dashboard.jsx'
@@ -19,7 +20,6 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
-    errorElement: <ErrorBoundary />
   },
   {
     path: "/admin",
@@ -30,7 +30,7 @@ const router = createBrowserRouter([
     ),
     children: [
       {
-        index: true, 
+        index: true,
         element: <PostCollection />
       },
       {
@@ -39,6 +39,10 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: "*",
+    element: <NotFound />
+  }
 ]);
 
 function App() {

@@ -1,6 +1,9 @@
 import styles from "./header.module.css"
+import { Link } from "react-router-dom"
+import { LinkButton } from "../../../utilities/linkButton"
 
 export const Header = () => {
+  
   return (
     <div className={styles.headerCont}>
       <div className={styles.profileWrapper}>
@@ -21,7 +24,7 @@ export const Header = () => {
           </div>
         </div>
         <div className={styles.linkContainer}>
-          <button>New</button>
+          <LinkButton url="/admin/create-post" text="New"/>
         </div>
       </div>
     </div>

@@ -9,8 +9,7 @@ export const PostForm = () => {
   const { user, token } = useContext(Authorization);
   const [data, setData] = useState({title: "", content: ""});
   const apiUrl = serverHostName() + '/posts/' + user.id;
-
-  console.log(apiUrl)
+  const navigate = useNavigate();
 
   function handleInput(e){
     const fieldName = e.target.id;
@@ -31,12 +30,11 @@ export const PostForm = () => {
 
     console.log("we have a post attempt");
     
-    useNavigate("/admin")
+    navigate("/admin");
   }
 
   return (
     <div>
-
       <form>
         <label htmlFor="title">Title</label>
         <input type="text" id="title" value={data.title} onChange={handleInput}/>
@@ -44,9 +42,6 @@ export const PostForm = () => {
         <input type="text" id="content" value={data.content} onChange={handleInput}/>
         <button type="submit" onClick={handlePost}>Review</button>
       </form>
-      
-
     </div>
-
   )
 }
