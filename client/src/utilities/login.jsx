@@ -5,6 +5,7 @@ import { Authorization } from "../utilities/authProvider";
 export const Login = () => {
   const [userInput, setUserInput] = useState({ username: "", password: "" });
   const { login, user, error } = useContext(Authorization);
+  const {vError, setVError} = useState(null);
 
   function handleUpdate(e) {
     // on every input change, the component needs to re-render to show updated user input
@@ -22,21 +23,26 @@ export const Login = () => {
     console.log(url);
 
     const response = await login(url, userInput);
+
+    if(response instanceof Error){
+      setVError(response.message);
+      return;
+    }
   }
 
   return (
 
     <div>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="username">User name</label>
-        <input type="text" id="username" onChange={handleUpdate} value={userInput.username} />
+        <label htmlFor="username" >User name</label>
+        <input type="text" id="username" onChange={handleUpdate} value={userInput.username} required="true"/>
         <label htmlFor="password">Password</label>
-        <input type="password" id="password" onChange={handleUpdate} value={userInput.password} />
+        <input type="password" id="password" onChange={handleUpdate} value={userInput.password} required="true"/>
         <button type="submit"></button>
       </form>
       <div>
         {user && user.first_name}
-        {error && error.message}
+        {vError && vError}
       </div>
     </div>
   )

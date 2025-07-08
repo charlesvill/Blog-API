@@ -1,6 +1,6 @@
 import { useState, useContext } from "react"
 import { useNavigate } from "react-router-dom";
-import { apiFetch, clientHostName, serverHostName } from "../../utilities/apiUtils";
+import { apiFetch, serverHostName } from "../../utilities/apiUtils";
 import { Authorization } from "../../utilities/authProvider";
 
 // api endpoint: /posts/:userid method: post

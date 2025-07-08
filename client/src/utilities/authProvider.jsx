@@ -70,18 +70,13 @@ export function AuthProvider({ children }) {
         "POST",
       );
 
-      if (response instanceof Error) {
-        setError(response);
-        console.log(error);
-        throw new Error(response);
-      }
-
       setToken(response.token);
       setUser(response.user);
       setLoading(false);
     } catch (error) {
       console.error(error);
       setError(error);
+      return error;
     }
   }
 
