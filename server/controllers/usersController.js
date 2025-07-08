@@ -71,6 +71,7 @@ async function updateUser(req, res, next) {
   // ,"username":"charlesvill","first_name":"Charles","last_name":"villa","password":"1234","confirm_pass":"1234"}'
 }
 
+// added token verification MW for testing JWT Autentication
 async function readUserData(req, user, next) {
   const { id } = req.body;
 

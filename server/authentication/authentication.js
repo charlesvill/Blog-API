@@ -6,6 +6,7 @@ const { BadRequestError, InternalServerError } = require("../utils/err");
 
 async function authenticateUser(req, res, next) {
   const { username, password } = req.body;
+  const tokenExpiresIn = 1000;
   // find username
   try {
     const user = await prisma.user.findUnique({
@@ -24,7 +25,7 @@ async function authenticateUser(req, res, next) {
     }
     const opts = {}
     const secret = process.env.JWT_SECRET;
-    opts.expiresIn = 1000000;
+    opts.expiresIn = tokenExpiresIn;
     // jwt sign token and respond with token
     const token = jwt.sign({ sub: user.id }, secret, opts);
 
@@ -35,7 +36,7 @@ async function authenticateUser(req, res, next) {
     });
 
   } catch (err) {
-    return next(new InternalServerError(err.message));
+    return next(err);
   }
 }
 

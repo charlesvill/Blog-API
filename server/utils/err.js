@@ -34,7 +34,7 @@ class NotFoundError extends Error {
   }
 }
 
-// - 500 Internal server error - This is a generic server error. It probably shouldn't be thrown explicitly.
+// - 500 Internal server error - This is a generic server error. It could be because prisma db search was not found.
 class InternalServerError extends Error {
   constructor(message){
     super(message);

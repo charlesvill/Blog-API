@@ -86,7 +86,7 @@ async function getAllPostsByUserId(req, res, next) {
       },
     });
 
-    res.json(response);
+    res.json(response.posts);
   } catch (err) {
     return next(new InternalServerError(err.message));
   }
