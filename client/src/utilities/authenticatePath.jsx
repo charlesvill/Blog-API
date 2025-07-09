@@ -1,13 +1,25 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Authorization } from "./authProvider";
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 
 export function AuthGate({ children }) {
-  const { initializing, user } = useContext(Authorization);
+  const { initializing, user, path,setPath } = useContext(Authorization);
+  const location = useLocation();
+
+  useEffect(() => {
+    if (!user && !initializing) {
+      console.log("pathname to save: ", location.pathname);
+      setPath(location.pathname);
+    }
+  }, [user, path])
 
   if (initializing) {
     return <div>Loading...</div>
   }
 
-  return user ? children : <Navigate to="/login" replace />
+  if(!user){
+    return <Navigate to="/login" replace />
+  }
+
+  return children;
 }

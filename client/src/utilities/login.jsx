@@ -1,11 +1,18 @@
-import { useState } from "react"
-import { useContext } from "react";
+import { useEffect, useContext, useState } from "react"
+import { useNavigate } from "react-router-dom";
 import { Authorization } from "../utilities/authProvider";
 
 export const Login = () => {
   const [userInput, setUserInput] = useState({ username: "", password: "" });
-  const { login, user, error } = useContext(Authorization);
-  const [vError, setVError] = useState(null);
+  const { login, user, path, setPath, error } = useContext(Authorization);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user && path) {
+      navigate(path, { replace: true });
+      setPath(null);
+    }
+  }, [user, path])
 
   function handleUpdate(e) {
     // on every input change, the component needs to re-render to show updated user input
@@ -18,13 +25,10 @@ export const Login = () => {
   async function handleSubmit(e) {
     e.preventDefault();
     const url = import.meta.env.VITE_LOCAL_LOGIN;
-    // state storing result of fetch
-
-    // console.log(url);
 
     const response = await login(url, userInput);
 
-    if(response instanceof Error){
+    if (response instanceof Error) {
       return;
     }
   }
@@ -34,9 +38,9 @@ export const Login = () => {
     <div>
       <form onSubmit={handleSubmit}>
         <label htmlFor="username" >User name</label>
-        <input type="text" id="username" onChange={handleUpdate} value={userInput.username} required={true}/>
+        <input type="text" id="username" onChange={handleUpdate} value={userInput.username} required={true} />
         <label htmlFor="password">Password</label>
-        <input type="password" id="password" onChange={handleUpdate} value={userInput.password} required={true}/>
+        <input type="password" id="password" onChange={handleUpdate} value={userInput.password} required={true} />
         <button type="submit"></button>
       </form>
       <div>

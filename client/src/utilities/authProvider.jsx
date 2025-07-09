@@ -8,6 +8,7 @@ export const Authorization = createContext();
 export function AuthProvider({ children }) {
   const [token, setToken] = useState(localStorage.getItem("token") || "");
   const [user, setUser] = useState(null);
+  const [path, setPath] = useState(null);
   const [mode, setMode] = useState("");
   const [loading, setLoading] = useState(false);
   const [initializing, setInitializing] = useState(true);
@@ -90,15 +91,14 @@ export function AuthProvider({ children }) {
   }
 
   const authContextValue = useMemo(() => ({
-    user, mode, token, setToken, login, logOut, loading, setLoading, initializing, setInitializing, error, setError
-  }), [user, mode, token, loading, initializing, error]);
+    user, path, setPath, mode, token, setToken, login, logOut, loading, setLoading, initializing, setInitializing, error, setError
+  }), [user, path, mode, token, loading, initializing, error]);
 
 
   return (
     <>
       <Authorization.Provider value={authContextValue}>
-        {/* error ? <ErrorBoundary error={error} /> : */ (!loading && children)}
-        {/* {!loading && (!error ? children : <ErrorBoundary error={error} />)} */}
+        {!loading && children}
       </Authorization.Provider>
     </>
   )

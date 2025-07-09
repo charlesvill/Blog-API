@@ -16,10 +16,12 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <HomePage />,
+    errorElement: <ErrorBoundary />,
   },
   {
     path: "/login",
     element: <Login />,
+    errorElement: <ErrorBoundary />,
   },
   {
     path: "/admin",
@@ -38,6 +40,7 @@ const router = createBrowserRouter([
         element: <PostForm />,
       },
     ],
+    errorElement: <ErrorBoundary />,
   },
   {
     path: "*",
