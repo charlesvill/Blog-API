@@ -1,7 +1,5 @@
 import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom'
 import { AuthProvider } from './utilities/authProvider.jsx'
-import { Authorization } from './utilities/authProvider.jsx'
-import { useContext } from 'react'
 import { ErrorBoundary } from './utilities/errorBoundary.jsx'
 import { NotFound } from './utilities/notFound.jsx'
 import { Login } from './utilities/login.jsx'
