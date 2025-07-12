@@ -6,6 +6,7 @@ const {
   getAllPostsByUserId,
   createPost,
   updatePost,
+  togglePublishPost,
   deletePost,
 } = require("../controllers/postsController.js");
 
@@ -28,6 +29,8 @@ postRouter.get("/:userid", getAllPostsByUserId);
 postRouter.post("/:userid", createPost);
 
 postRouter.put("/:postid", updatePost);
+
+postRouter.put("/:postid/publish", togglePublishPost);
 
 postRouter.delete("/:postid", deletePost);
 

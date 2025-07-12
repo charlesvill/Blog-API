@@ -148,6 +148,42 @@ async function updatePost(req, res, next) {
   }
 }
 
+async function togglePublishPost(req, res, next) {
+  const postId = req.params.postid;
+  let published;
+  // step one, see if its published
+  try {
+    const response = await prisma.post.findUnique({
+      where: {
+        id: Number(postId),
+      },
+    });
+    published = response.published
+
+    console.log("current post is published: ", published);
+  } catch (err) {
+    return next(new InternalServerError(err.message));
+  }
+  // step two, toggle boolean
+  const newState = published === true ? false : true;
+  console.log("this post will now be published: ", newState);
+
+  try {
+    const response = await prisma.post.update({
+      where: {
+        id: Number(postId),
+      },
+      data: {
+        published: newState,
+      },
+    });
+
+    res.json(response);
+  } catch (err) {
+    return next(new InternalServerError(err.message));
+  }
+}
+
 async function deletePost(req, res, next) {
   const postId = req.params.postid;
 
@@ -177,5 +213,6 @@ module.exports = {
   getAllPostsByUserId,
   createPost,
   updatePost,
+  togglePublishPost,
   deletePost,
 };
