@@ -1,0 +1,43 @@
+.projectContainer {
+  background-color: var(--background-color-light);
+  color: black;
+  justify-self: stretch;
+  align-self: stretch;
+  border-radius: 8px;
+  padding: 1.5rem;
+  padding-top: 1.5rem;
+  padding-left: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-left: 9px solid var(--accent-dark);
+  box-shadow: 0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
+}
+
+.projectContainer > div > p:first-child{
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 1rem;
+    padding-left:0;
+}
+.projectContainer > div > p:nth-child(2){
+    font-size: 1.1rem;
+    color: #52525b;
+    line-height: 1.15;
+}
+.projectButtonCont {
+    display:flex;
+    justify-content:flex-end;
+}
+.projectButtonCont > svg {
+    max-width: 1.5vw;
+    padding:.5rem;
+}
+
+.projectButton {
+  color: none;
+  display: flex;
+}
+.projectButton:hover {
+  fill-opacity: 0;
+}

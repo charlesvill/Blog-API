@@ -1,4 +1,6 @@
 import { useContext } from "react"
+import { useNavigate } from "react-router-dom";
+import { LinkButton } from "../utilities/linkButton";
 import { Authorization } from "../utilities/authProvider";
 
 export default function HomePage() {
@@ -14,6 +16,8 @@ export default function HomePage() {
           mode: {mode}
         </div>
       </div>
+
+      <LinkButton url={"/admin"} text={"Admin portal"} />
     </>
   )
 

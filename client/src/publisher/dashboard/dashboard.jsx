@@ -47,21 +47,4 @@ export const Dashboard = () => {
   )
 }
 
-// <div>
-//         left side (3 fractions grid-template column)
-//         <div>
-//           heading container
-//         </div>
-//         <div>
-//           cards container
-//           map over collection of posts
-//           <PostCard />
-//         </div>
-//       </div>
-//       <div>
-//         right side container (1 fractional grid template column)
-//         <div>
-//           heading container
-//         </div>
-//         <Announcements />
-//       </div>
+
