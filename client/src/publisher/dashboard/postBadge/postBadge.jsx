@@ -19,7 +19,12 @@ export const PostBadge = ({ post, dialogOpen, setDialogOpen }) => {
 
   async function toggleHandler() {
     const publishApiUrl = `${serverHostName()}/posts/${post.id}/publish`;
-    const response = await apiFetch(publishApiUrl, token, null, "PUT");
+    const response = await apiFetch(
+      publishApiUrl, 
+      token, 
+      null, 
+      "PUT"
+    );
 
     if (response instanceof Error ) {
       return;
@@ -30,9 +35,20 @@ export const PostBadge = ({ post, dialogOpen, setDialogOpen }) => {
   }
 
   async function deletePost() {
-    // const publishApiUrl = `${serverHostName()}/posts/${post.id}/publish`;
-    alert("there should be a deleted item of id: ",  post.id);
+    const deleteApiUrl = `${serverHostName()}/posts/${post.id}`;
+    const response = await apiFetch(
+      deleteApiUrl,
+      token,
+      null,
+      "DELETE",
+    );
+
+    if (response instanceof Error) {
+      alert("There was an error deleting post!");
+    }
+
     setDialogOpen(false);
+    return;
   }
   async function handleDelete() {
 

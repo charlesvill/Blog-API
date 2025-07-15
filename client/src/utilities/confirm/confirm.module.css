@@ -8,9 +8,11 @@
   display: flex;
   background-color: var(--background-color);
 }
+
 .dialogOverlay.hide {
   display: none;
 }
+
 .dialog {
   padding: 1rem;
 
