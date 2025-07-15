@@ -37,7 +37,11 @@
 .projectButton {
   color: none;
   display: flex;
+  width: auto;
+  height: auto;
+  cursor: pointer;
+  pointer-events: visiblePainted;
 }
 .projectButton:hover {
-  fill-opacity: 0;
+  fill-opacity: 15%;
 }
