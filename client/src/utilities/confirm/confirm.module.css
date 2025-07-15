@@ -1,0 +1,17 @@
+.dialogOverlay {
+  position: fixed;
+  top: 50vh;
+  left: 50vw;
+}
+
+.dialogOverlay.show {
+  display: flex;
+  background-color: var(--background-color);
+}
+.dialogOverlay.hide {
+  display: none;
+}
+.dialog {
+  padding: 1rem;
+
+}
