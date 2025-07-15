@@ -13,9 +13,15 @@ export const Dashboard = () => {
 
   const { user, loading, setLoading } = useContext(Authorization);
   const [posts, setPosts] = useState(null);
+  const [shouldReload, setReload] = useState(false);
 
+  function filterPosts(id){
+    const filteredPosts = posts.filter((post) => post.id !== id);
+    setPosts(filteredPosts);
+  }
 
   useEffect(() => {
+
     async function fetchData() {
       if (!user) {
         return;
@@ -29,7 +35,8 @@ export const Dashboard = () => {
     }
     setLoading(true);
     fetchData();
-  }, [user]);
+    setReload(false);
+  },[user, shouldReload]);
 
 
 
@@ -41,7 +48,7 @@ export const Dashboard = () => {
       <Header />
       <div className={styles.contentCont}>
         content container
-        <Outlet context={{ posts }} />
+        <Outlet context={{ posts, filterPosts, setReload }} />
       </div>
     </div>
   )

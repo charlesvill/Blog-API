@@ -3,7 +3,7 @@ import { useState } from "react";
 import { PostBadge } from "./postBadge/postBadge.jsx"
 
 export function PostCollection() {
-  const { posts } = useOutletContext();
+  const { posts, filterPosts, setReload } = useOutletContext();
   const [dialogOpen, setDialogOpen] = useState(false);
 
   return (
@@ -13,6 +13,8 @@ export function PostCollection() {
         post={post}
         dialogOpen={dialogOpen}
         setDialogOpen={setDialogOpen}
+        deletePostFn={filterPosts}
+        reloadParent={setReload}
         key={post.id}
       />)}
     </div>
