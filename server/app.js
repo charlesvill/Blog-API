@@ -27,11 +27,12 @@ app.get("/", (req, res) => {
 app.use("/log-in", logInRouter);
 
 app.use("/users", userRouter);
+
 app.use("/posts", postRouter);
 
 
 app.use((req, res, next) => {
-  return next(new NotFoundError("404: Not Found!"));
+  return next(new NotFoundError(`404: Not Found! path: ${req.path}`));
 });
 
 app.use((err, req, res, next) => {

@@ -193,14 +193,16 @@ async function deletePost(req, res, next) {
         post_id: Number(postId),
       },
     }).then(async () => {
-      await prisma.post.delete({
+      const response = await prisma.post.delete({
         where: {
           id: Number(postId),
         },
       });
+      return response;
     });
+    console.log("we have deleted a post: ", response)
 
-    res.send("successfully deleted post!");
+    res.json("successfully deleted post!");
   } catch (err) {
     return next(new InternalServerError(err.message));
   }
