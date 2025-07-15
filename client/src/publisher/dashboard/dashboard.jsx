@@ -31,9 +31,7 @@ export const Dashboard = () => {
       console.log(url);
       const fetchAllPosts = await apiFetch(url);
       setPosts(fetchAllPosts);
-      setLoading(false);
     }
-    setLoading(true);
     fetchData();
     setReload(false);
   },[user, shouldReload]);
