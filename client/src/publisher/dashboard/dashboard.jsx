@@ -6,35 +6,37 @@ import { useState, useEffect, useContext } from "react"
 import { Outlet } from "react-router-dom"
 import { apiFetch, clientHostName, serverHostName } from "../../utilities/apiUtils.js"
 import { Authorization } from "../../utilities/authProvider.jsx"
+import { useFetchData } from "../../utilities/useFetchData.jsx"
 
 
 
 export const Dashboard = () => {
 
-  const { user, loading, setLoading } = useContext(Authorization);
+  const { user } = useContext(Authorization);
   const [posts, setPosts] = useState(null);
   const [shouldReload, setReload] = useState(false);
+  const url = serverHostName() + '/posts/' + user.id;
 
-  function filterPosts(id){
-    const filteredPosts = posts.filter((post) => post.id !== id);
-    setPosts(filteredPosts);
-  }
+  const { data, loading, error } = useFetchData(url);
 
-  useEffect(() => {
+  // function filterPosts(id) {
+  //   const filteredPosts = posts.filter((post) => post.id !== id);
+  //   setPosts(filteredPosts);
+  // }
 
-    async function fetchData() {
-      if (!user) {
-        return;
-      }
 
-      const url = serverHostName() + '/posts/' + user.id;
-      console.log(url);
-      const fetchAllPosts = await apiFetch(url);
-      setPosts(fetchAllPosts);
-    }
-    fetchData();
-    setReload(false);
-  },[user, shouldReload]);
+
+  // useEffect(() => {
+
+  //   async function fetchData() {
+
+  //     console.log(url);
+  //     const fetchAllPosts = await apiFetch(url);
+  //     setPosts(fetchAllPosts);
+  //   }
+  //   fetchData();
+  //   setReload(false);
+  // }, [user, shouldReload]);
 
 
 
@@ -46,7 +48,7 @@ export const Dashboard = () => {
       <Header />
       <div className={styles.contentCont}>
         content container
-        <Outlet context={{ posts, filterPosts, setReload }} />
+        <Outlet context={{ data, setReload }} />
       </div>
     </div>
   )

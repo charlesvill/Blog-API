@@ -3,17 +3,16 @@ import { useState } from "react";
 import { PostBadge } from "./postBadge/postBadge.jsx"
 
 export function PostCollection() {
-  const { posts, filterPosts, setReload } = useOutletContext();
+  const { data, setReload } = useOutletContext();
   const [dialogOpen, setDialogOpen] = useState(false);
 
   return (
     <div>
       <div>All Posts</div>
-      {posts && posts.map(post => <PostBadge
+      {data && data.map(post => <PostBadge
         post={post}
         dialogOpen={dialogOpen}
         setDialogOpen={setDialogOpen}
-        deletePostFn={filterPosts}
         reloadParent={setReload}
         key={post.id}
       />)}

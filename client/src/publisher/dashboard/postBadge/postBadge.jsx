@@ -5,7 +5,7 @@ import { apiFetch, serverHostName } from '../../../utilities/apiUtils';
 import { Authorization } from '../../../utilities/authProvider';
 import { confirmDialog } from '../../../utilities/confirm/confirm.jsx';
 
-export const PostBadge = ({ post, dialogOpen, setDialogOpen, deletePostFn, reloadParent }) => {
+export const PostBadge = ({ post, dialogOpen, setDialogOpen, reloadParent }) => {
   const { token } = useContext(Authorization);
   const textLength = 150;
   const condensedText = post.content.slice(0, textLength);
@@ -42,7 +42,7 @@ export const PostBadge = ({ post, dialogOpen, setDialogOpen, deletePostFn, reloa
     if (response instanceof Error) {
       alert("There was an error deleting post!");
     }
-    deletePostFn(post.id);
+    // deletePostFn(post.id);
     setDialogOpen(false);
     return;
   }
