@@ -1,6 +1,7 @@
 import { useEffect, useContext, useState } from "react"
 import { useNavigate } from "react-router-dom";
 import { Authorization } from "../utilities/authProvider";
+import { LinkButton } from "./linkButton";
 
 export const Login = () => {
   const [userInput, setUserInput] = useState({ username: "", password: "" });
@@ -16,6 +17,7 @@ export const Login = () => {
 
   function handleUpdate(e) {
     // on every input change, the component needs to re-render to show updated user input
+    e.preventDefault();
     const fieldName = e.target.id;
     const value = e.target.value;
 
@@ -44,7 +46,7 @@ export const Login = () => {
         <button type="submit"></button>
       </form>
       <div>
-        {user && user.first_name}
+        {!user ? <LinkButton url={"/signup"} text={"New?"}/> : user.first_name}
         {error}
       </div>
     </div>

@@ -3,6 +3,7 @@ import { AuthProvider } from './utilities/authProvider.jsx'
 import { ErrorBoundary } from './utilities/errorBoundary.jsx'
 import { NotFound } from './utilities/notFound.jsx'
 import { Login } from './utilities/login.jsx'
+import { SignUp } from './utilities/signup.jsx'
 import HomePage from './endUser/homepage/homepage.jsx'
 import { Dashboard } from './publisher/dashboard/dashboard.jsx'
 import { AuthGate } from './utilities/authenticatePath.jsx'
@@ -19,6 +20,11 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
+    errorElement: <ErrorBoundary />,
+  },
+  {
+    path: "/signup",
+    element: <SignUp />,
     errorElement: <ErrorBoundary />,
   },
   {

@@ -4,7 +4,7 @@ export function LinkButton({ url, text }) {
   const navigate = useNavigate();
 
   function handleNav() {
-    navigate(url);
+    navigate(url, { replace: true });
   }
 
   return (
