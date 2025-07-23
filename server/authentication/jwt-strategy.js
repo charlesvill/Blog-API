@@ -5,6 +5,7 @@ const { InternalServerError } = require('../utils/err.js');
 const opts = {}
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 opts.secretOrKey = process.env.JWT_SECRET;
+console.log("the key is: ", opts.secretOrKey);
 
 
 module.exports = new JwtStrategy(opts, async (jwt_payload, done) => {

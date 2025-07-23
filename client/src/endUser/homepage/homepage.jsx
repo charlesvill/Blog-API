@@ -18,7 +18,6 @@ export default function HomePage() {
       const url = serverHostName() + '/posts';
       console.log("url for fetch: ", url);
 
-
     }
 
 
@@ -35,3 +34,4 @@ export default function HomePage() {
     </div>
   )
 }
+

@@ -102,5 +102,4 @@ export function AuthProvider({ children }) {
       </Authorization.Provider>
     </>
   )
-
 }
