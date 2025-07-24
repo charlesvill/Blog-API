@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 export function SignUp() {
   const [userInput, setUserInput] = useState({});
-  const createUserUrl = 'http://localhost:5000/users';
+  const createUserUrl = import.meta.env.VITE_LOCAL_GET_USER;
   const navigate = useNavigate();
 
   function handleUpdate(e) {

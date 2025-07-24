@@ -8,7 +8,7 @@ export function Header() {
   return (
     <div>
       this is the header for client
-      {!user ? <LinkButton url={'/login'} text={"Log In"} /> : user.first_name}
+      {!user ? <LinkButton url={'/login'} text={"Log In"} /> : (<div>{user.first_name} <LinkButton url={"/logout"} text={"logout"}/></div>)}
     </div>
   )
 }
