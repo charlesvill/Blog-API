@@ -1,9 +1,11 @@
 import { apiFetch, clientHostName } from "./apiUtils";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export function SignUp() {
   const [userInput, setUserInput] = useState({});
-  const createUserUrl = clientHostName() + '/users';
+  const createUserUrl = 'http://localhost:5000/users';
+  const navigate = useNavigate();
 
   function handleUpdate(e) {
     const fieldName = e.target.id;
@@ -21,6 +23,15 @@ export function SignUp() {
       userInput,
       "POST"
     );
+
+    if (response instanceof Error) {
+      // error handling
+      return;
+    }
+
+    navigate("/login", { replace: true });
+
+
 
     console.log("response result was ", response);
   }
