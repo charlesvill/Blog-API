@@ -11,6 +11,7 @@ async function createNewUser(req, res, next) {
     confirm_pass
   } = req.body;
 
+console.log("we have a request to create user, " , username);
   if (password !== confirm_pass) {
     return next(new BadRequestError("Passwords must match!"));
   }
@@ -26,7 +27,7 @@ async function createNewUser(req, res, next) {
       }
     });
     console.log("user successfully created!", response);
-    res.redirect("/log-in");
+    res.json(response);
   } catch (error) {
     return next(new InternalServerError(error.message));
   }
