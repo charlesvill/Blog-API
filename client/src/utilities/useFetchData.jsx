@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { apiFetch } from "./apiUtils";
 
-export function useFetchData(url){
+export function useFetchData(url, dependentVar){
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -12,19 +12,19 @@ export function useFetchData(url){
       try {
         const response = await apiFetch(url);
         if(response instanceof Error){
-          throw new Error(err);
+          throw new Error(response.message);
         }
         setData(response);
       } catch (err) {
 
-        setError(response);
+        setError(err);
       } finally {
         setLoading(false);
       }
     };
 
     fetchData();
-  },[url]);
+  },[url, dependentVar]);
 
   return { data, loading, error };
 }

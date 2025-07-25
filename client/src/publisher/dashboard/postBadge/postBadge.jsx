@@ -44,6 +44,7 @@ export const PostBadge = ({ post, dialogOpen, setDialogOpen, reloadParent }) => 
     }
     // deletePostFn(post.id);
     setDialogOpen(false);
+    reloadParent(true);
     return;
   }
 

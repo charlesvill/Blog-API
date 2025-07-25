@@ -1,3 +1,4 @@
+import React from "react"
 import { Header } from "./header/header.jsx"
 import { SideNav } from "./sideNav/sideNavbar.jsx"
 import { Announcements } from "./announcements"
@@ -17,7 +18,13 @@ export const Dashboard = () => {
   const [shouldReload, setReload] = useState(false);
   const url = serverHostName() + '/posts/' + user.id;
 
-  const { data, loading, error } = useFetchData(url);
+  const { data, loading, error } = useFetchData(url, shouldReload);
+
+  useEffect(() => {
+    if(shouldReload){
+      setReload(false);
+    }
+  }, [shouldReload])
 
   // function filterPosts(id) {
   //   const filteredPosts = posts.filter((post) => post.id !== id);
