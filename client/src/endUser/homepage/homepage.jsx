@@ -5,6 +5,7 @@ import { LinkButton } from "../../utilities/linkButton";
 import { Authorization } from "../../utilities/authProvider";
 import styles from "./homepage.module.css";
 import { Header } from "../header/clientHeader";
+import { PostMapper } from "./feedPosts/feedPosts";
 import { apiFetch, serverHostName } from "../../utilities/apiUtils";
 import { useFetchData } from "../../utilities/useFetchData";
 
@@ -13,22 +14,15 @@ export default function HomePage() {
   const url = serverHostName() + "/posts";
   const { data, loading, error } = useFetchData(url, user);
 
-  function PostMapper({ data }) {
-    return (
-      <div>
-        {data.map((post) => (
-          <div>{post.title}</div>
-        ))}
-      </div>
-    );
-  }
+  
 
   return (
     <div className={styles.homeCont}>
       user: {user && user.first_name}
       <Header />
       <div className={styles.contentCont}>
-        {!data ? <span>Loading...</span> : <PostMapper data={data} />}
+        <PostMapper url={/* featured url */} className={""} />
+        <PostMapper url={/* first 10 url */} className={""} />
       </div>
       <LinkButton url={"/admin"} text={"Admin portal"} />
     </div>

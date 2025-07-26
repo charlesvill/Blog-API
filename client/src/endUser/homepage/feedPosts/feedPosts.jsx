@@ -9,7 +9,11 @@ export function PostMapper({url, className}) {
   return (
     <div className={styles[`${className}`]}>
       {data.map((post) => (
-        <div>{post.title}</div>
+        <div>
+          <h3>{post.title}</h3>
+          <img src={post.img_url}/>
+          <p>{post.content.substring(0, 10)}</p>
+        </div>
       ))}
     </div>
   );
