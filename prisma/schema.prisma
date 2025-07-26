@@ -21,18 +21,21 @@ model User {
   hash       String
   posts      Post[]
   comments   Comment[]
+  Like       Like[]
 }
 
 model Post {
   id           Int       @id @default(autoincrement())
   title        String
+  img_url      String?
   content      String?
   published    Boolean   @default(false)
   author       User      @relation(fields: [author_id], references: id)
   author_id    Int
   published_at DateTime  @default(now())
   updated_at   DateTime  @updatedAt
-  comment      Comment[]
+  comments     Comment[]
+  likes        Like[]
 }
 
 model Comment {
@@ -43,4 +46,13 @@ model Comment {
   post_id      Int
   author       User     @relation(fields: [author_id], references: id)
   author_id    Int
+}
+
+model Like {
+  id      Int      @id @default(autoincrement())
+  like_at DateTime @default(now())
+  User    User     @relation(fields: [user_id], references: id)
+  user_id Int
+  Post    Post     @relation(fields: [post_id], references: id)
+  post_id Int
 }

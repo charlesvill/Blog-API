@@ -3,15 +3,33 @@ const prisma = require("../../prisma/prisma");
 
 async function getAllPosts(req, res, next) {
   // should output the first 10 posts
+  // case: /posts?popular=true -> 
+  const featPopular = req.params.popular === "true";
+
   try {
-    const response = await prisma.post.findMany({
-      take: 10,
-    });
+    let response;
+
+    if (featPopular) {
+      response = await prisma.post.findMany({
+        take: 10,
+      });
+    } else {
+      response = await prisma.post.findMany({
+        take: 10,
+        orderBy: {
+          likes: {
+            _count: "desc",
+          },
+        },
+      });
+    }
+
     res.json(response);
   } catch (err) {
     return next(new InternalServerError(err));
   }
 }
+
 async function getCommentsByPostId(req, res, next) {
   // see all comments
   const postId = req.params.postid;
