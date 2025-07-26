@@ -1,5 +1,6 @@
 const { Router } = require("express");
 const {
+  getAllPosts,
   getCommentsByPostId,
   postComment,
   deleteComment,
@@ -12,9 +13,7 @@ const {
 
 const postRouter = Router();
 
-postRouter.get("/", (req, res, next) => {
-  res.send("GET request for posts!");
-});
+postRouter.get("/", getAllPosts);
 
 postRouter.get("/:postid/comments", getCommentsByPostId);
     

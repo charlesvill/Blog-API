@@ -1,6 +1,17 @@
 const { InternalServerError } = require("../utils/err");
 const prisma = require("../../prisma/prisma");
 
+async function getAllPosts(req, res, next) {
+  // should output the first 10 posts
+  try {
+    const response = await prisma.post.findMany({
+      take: 10,
+    });
+    res.json(response);
+  } catch (err) {
+    return next(new InternalServerError(err));
+  }
+}
 async function getCommentsByPostId(req, res, next) {
   // see all comments
   const postId = req.params.postid;
@@ -11,7 +22,7 @@ async function getCommentsByPostId(req, res, next) {
       },
       include: {
         comment: true,
-      }
+      },
     });
 
     res.json(response);
@@ -70,7 +81,13 @@ async function deleteComment(req, res, next) {
     return next(new InternalServerError(err.message));
   }
 
-  res.send("delete a comment on the " + postId + "post id and " + commentId + "comment id");
+  res.send(
+    "delete a comment on the " +
+      postId +
+      "post id and " +
+      commentId +
+      "comment id",
+  );
 }
 
 async function getAllPostsByUserId(req, res, next) {
@@ -95,10 +112,8 @@ async function getAllPostsByUserId(req, res, next) {
 async function createPost(req, res, next) {
   console.log("coming live from the post a blog router!");
 
-  const {
-    title,
-    content,
-  } = req.body; const userId = req.params.userid;
+  const { title, content } = req.body;
+  const userId = req.params.userid;
 
   try {
     const response = await prisma.post.create({
@@ -108,12 +123,12 @@ async function createPost(req, res, next) {
         author: {
           connect: {
             id: Number(userId),
-          }
-        }
+          },
+        },
       },
       include: {
-        author: true
-      }
+        author: true,
+      },
     });
 
     res.json(response);
@@ -125,10 +140,7 @@ async function createPost(req, res, next) {
 }
 
 async function updatePost(req, res, next) {
-  const {
-    title,
-    content,
-  } = req.body;
+  const { title, content } = req.body;
   const postId = req.params.postid;
 
   try {
@@ -158,7 +170,7 @@ async function togglePublishPost(req, res, next) {
         id: Number(postId),
       },
     });
-    published = response.published
+    published = response.published;
 
     console.log("current post is published: ", published);
   } catch (err) {
@@ -188,19 +200,21 @@ async function deletePost(req, res, next) {
   const postId = req.params.postid;
 
   try {
-    const response = await prisma.comment.deleteMany({
-      where: {
-        post_id: Number(postId),
-      },
-    }).then(async () => {
-      const response = await prisma.post.delete({
+    const response = await prisma.comment
+      .deleteMany({
         where: {
-          id: Number(postId),
+          post_id: Number(postId),
         },
+      })
+      .then(async () => {
+        const response = await prisma.post.delete({
+          where: {
+            id: Number(postId),
+          },
+        });
+        return response;
       });
-      return response;
-    });
-    console.log("we have deleted a post: ", response)
+    console.log("we have deleted a post: ", response);
 
     res.json("successfully deleted post!");
   } catch (err) {
@@ -209,6 +223,7 @@ async function deletePost(req, res, next) {
 }
 
 module.exports = {
+  getAllPosts,
   getCommentsByPostId,
   postComment,
   deleteComment,
