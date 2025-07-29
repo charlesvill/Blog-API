@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const {
   getAllPosts,
-  getCommentsByPostId,
+  getPostByPostId,
   postComment,
   deleteComment,
   getAllPostsByUserId,
@@ -15,14 +15,17 @@ const postRouter = Router();
 
 postRouter.get("/", getAllPosts);
 
-postRouter.get("/:postid/comments", getCommentsByPostId);
+//two below do same thing, check response if I need to split the fns
+postRouter.get("/:postid", getPostByPostId);
+
+postRouter.get("/:postid/comments", getPostByPostId);
     
 postRouter.post("/:postid/comments/:userid", postComment);
 
 postRouter.delete("/:postid/comments/:commentid", deleteComment);
 
 // get all posts by user
-postRouter.get("/:userid", getAllPostsByUserId);
+postRouter.get("/user/:userid", getAllPostsByUserId);
 
 // post a blog 
 postRouter.post("/:userid", createPost);

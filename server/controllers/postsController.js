@@ -30,7 +30,7 @@ async function getAllPosts(req, res, next) {
   }
 }
 
-async function getCommentsByPostId(req, res, next) {
+async function getPostByPostId(req, res, next) {
   // see all comments
   const postId = req.params.postid;
   try {
@@ -39,7 +39,7 @@ async function getCommentsByPostId(req, res, next) {
         id: Number(postId),
       },
       include: {
-        comment: true,
+        comments: true,
       },
     });
 
@@ -242,7 +242,7 @@ async function deletePost(req, res, next) {
 
 module.exports = {
   getAllPosts,
-  getCommentsByPostId,
+  getPostByPostId,
   postComment,
   deleteComment,
   getAllPostsByUserId,
