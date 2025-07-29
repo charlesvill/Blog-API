@@ -16,7 +16,7 @@ export default defineConfig([
 
   // Node/Express backend (CommonJS)
   {
-    files: ["backend/**/*.{js,cjs}"],
+    files: ["server/**/*.{js,cjs}"],
     languageOptions: {
       sourceType: "script", // CommonJS
       globals: {
@@ -28,7 +28,7 @@ export default defineConfig([
 
   // React frontend (ESM)
   {
-    files: ["frontend/**/*.{js,jsx,mjs}"],
+    files: ["client/**/*.{js,jsx,mjs}"],
     languageOptions: {
       sourceType: "module", // ESM
       globals: {
