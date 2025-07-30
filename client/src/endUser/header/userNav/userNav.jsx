@@ -5,10 +5,10 @@ import styles from "./userNav.module.css";
 export function UserNav({ name }) {
   const [modalActive, setModal] = useState(false);
 
-  function handleToggle(e){
+  function handleToggle(e) {
     e.preventDefault();
 
-    if(modalActive === true){
+    if (modalActive === true) {
       setModal(false);
     } else {
       setModal(true);
@@ -17,7 +17,9 @@ export function UserNav({ name }) {
 
   return (
     <nav>
-      <h3 onClick={handleToggle} className={styles.userName}>{name}</h3>
+      <h3 onClick={handleToggle} className={styles.userName}>
+        {name}
+      </h3>
       {modalActive && (
         <div>
           <LinkButton url={"/admin"} text={"Author's Dashboard"} />
