@@ -3,7 +3,7 @@ const prisma = require("../../prisma/prisma");
 
 async function getAllPosts(req, res, next) {
   // should output the first 10 posts
-  // case: /posts?popular=true -> 
+  // case: /posts?popular=true ->
   const featPopular = req.params.popular === "true";
 
   try {
@@ -130,7 +130,7 @@ async function getAllPostsByUserId(req, res, next) {
 async function createPost(req, res, next) {
   console.log("coming live from the post a blog router!");
 
-  const { title, content } = req.body;
+  const { title, content, img_url } = req.body;
   const userId = req.params.userid;
 
   try {
@@ -138,6 +138,7 @@ async function createPost(req, res, next) {
       data: {
         title,
         content,
+        img_url,
         author: {
           connect: {
             id: Number(userId),
@@ -158,7 +159,7 @@ async function createPost(req, res, next) {
 }
 
 async function updatePost(req, res, next) {
-  const { title, content } = req.body;
+  const { title, content, img_url } = req.body;
   const postId = req.params.postid;
 
   try {
@@ -169,6 +170,7 @@ async function updatePost(req, res, next) {
       data: {
         title,
         content,
+        img_url,
       },
     });
 
