@@ -11,6 +11,7 @@ import { HomeContent } from "./endUser/homepage/homeContent/homeContent.jsx";
 import { Dashboard } from "./publisher/dashboard/dashboard.jsx";
 import { AuthGate } from "./utilities/authenticatePath.jsx";
 import { PostForm } from "./publisher/dashboard/postForm.jsx";
+import { UpdatePostForm } from "./publisher/dashboard/updateForm.jsx";
 import { PostCollection } from "./publisher/dashboard/postCollection.jsx";
 import { Post } from "./endUser/post/Post.jsx";
 import "./index.css";
@@ -62,6 +63,10 @@ const router = createBrowserRouter([
       {
         path: "create-post",
         element: <PostForm />,
+      },
+      {
+        path: "update-post",
+        element: <UpdatePostForm />,
       },
     ],
     errorElement: <ErrorBoundary />,
