@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import { apiFetch } from "../../utilities/apiUtils";
+import { Authorization } from "../../utilities/authProvider";
 
 export function usePostForm() {
   const { user, token } = useContext(Authorization);
@@ -11,15 +12,13 @@ export function usePostForm() {
 
   const navigate = useNavigate();
 
-
-
   function handleInput(e) {
     const fieldName = e.target.id;
     const value = e.target.value;
 
     setData({ ...data, [fieldName]: value });
   }
-  // left off here deciding if i will extract these two fns into one
+
   async function handlePost(e) {
     e.preventDefault();
 
@@ -28,7 +27,13 @@ export function usePostForm() {
     setReload(true);
     navigate("/admin");
   }
-  
 
-  return { handleInput, handlePost, setHttpMethod, setUrl};
+  return {
+    handleInput,
+    handlePost,
+    setHttpMethod,
+    setUrl,
+    user,
+    data,
+  };
 }
