@@ -6,21 +6,26 @@ import { Authorization } from "../../utilities/authProvider";
 export function usePostForm(
   httpMethod = "POST",
   id = null,
-  preFieldData = null,
+  initFieldData = null,
 ) {
   const { user, token } = useContext(Authorization);
   const { setReload } = useOutletContext();
-  const [fieldData, setData] = useState(
-    preFieldData ? preFieldData : { title: "", content: "", img_url: "" },
-  );
+  const [fieldData, setData] = useState(null);
 
   const navigate = useNavigate();
-  let url;
+
+  useEffect(() => {
+    if (httpMethod === "PUT" && initFieldData) {
+      setData(initFieldData);
+    } else {
+      setData({ title: "", content: "", img_url: "" });
+    }
+  }, [initFieldData, httpMethod]);
 
   useEffect(() => {
     if (user) {
       //distinguish between a post id that must be passed or a user id
-      url = serverHostName() + "/posts/" + id ? id : user.id;
+      const url = serverHostName() + "/posts/" + (id ?? user.id);
       console.log("url in the post form: ", url);
     }
   }, [user, id]);
@@ -35,6 +40,8 @@ export function usePostForm(
   async function handlePost(e) {
     e.preventDefault();
 
+    const url = serverHostName() + "/posts/" + (id ?? user.id);
+    console.log("url to fetch: ", url);
     await apiFetch(url, token, fieldData, httpMethod);
 
     setReload(true);
