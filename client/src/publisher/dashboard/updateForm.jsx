@@ -15,7 +15,7 @@ export function UpdatePostForm() {
     data && (
       <div>
         <form>
-          <PostFormFields id={postid} initData={data}  />
+          <PostFormFields httpMethod="PUT" id={postid} initData={data}  />
         </form>
       </div>
     )

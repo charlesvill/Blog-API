@@ -1,9 +1,9 @@
 import React from "react";
 import { usePostForm } from "./usePostForm";
 
-export function PostFormFields({ id, initData }) {
+export function PostFormFields({ httpMethod, id, initData }) {
   const { handleInput, handlePost, fieldData } = usePostForm(
-    "PUT",
+    httpMethod,
     id,
     initData,
   );
