@@ -1,16 +1,22 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
-import { apiFetch } from "../../utilities/apiUtils";
+import { apiFetch, serverHostName } from "../../utilities/apiUtils";
 import { Authorization } from "../../utilities/authProvider";
 
-export function usePostForm() {
+export function usePostForm(httpMethod="POST", id=null) {
   const { user, token } = useContext(Authorization);
   const { setReload } = useOutletContext();
   const [data, setData] = useState({ title: "", content: "", img_url: "" });
-  const [httpMethod, setHttpMethod] = useState("POST");
-  const [url, setUrl] = useState(null);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      //distinguish between a post id that must be passed or a user id 
+      const url = serverHostName() + "/posts/" + id ? id : user.id;
+      console.log("url in the post form: ", url);
+    }
+  }, [user]);
 
   function handleInput(e) {
     const fieldName = e.target.id;
@@ -31,9 +37,6 @@ export function usePostForm() {
   return {
     handleInput,
     handlePost,
-    setHttpMethod,
-    setUrl,
-    user,
     data,
   };
 }
