@@ -65,7 +65,7 @@ const router = createBrowserRouter([
         element: <PostForm />,
       },
       {
-        path: "update-post",
+        path: "update-post/:postid",
         element: <UpdatePostForm />,
       },
     ],
