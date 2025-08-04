@@ -1,6 +1,5 @@
 import { useState, createContext, useEffect, useMemo } from 'react'
 import { apiFetch } from './apiUtils';
-import { ErrorBoundary } from './errorBoundary';
 
 export const Authorization = createContext();
 
