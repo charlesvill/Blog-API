@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useFetchData } from "../../utilities/useFetchData"
 import { serverHostName } from "../../utilities/apiUtils";
 import { useParams } from "react-router-dom";
@@ -13,9 +13,17 @@ import { apiFetch } from "../../utilities/apiUtils";
 export function Post() {
   const { user, token } = useContext(Authorization);
   const { postid } = useParams();
+  const [reload, setReload] = useState(false);
   const url = serverHostName() + "/posts/" + postid;
 
-  const { data, loading, error } = useFetchData(url);
+  useEffect(()=>{
+    if(reload){
+      setReload(false);
+    }
+
+  }, [reload]);
+
+  const { data, loading, error } = useFetchData(url, reload);
   function CommentMapper({comments}) {
     console.log( comments);
     return (
@@ -25,7 +33,7 @@ export function Post() {
     )
   }
 
-  function CommentForm() {
+  function CommentForm({setReload}) {
     const [commentField, setField] = useState({});
 
     function handleInput(e) {
@@ -42,7 +50,7 @@ export function Post() {
 
       // url, token, body, method, headers 
       e.preventDefault();
-      const response = await apiFetch(url,token, commentField, "POST"); 
+      const response = await apiFetch(url,token, commentField, "POST").then(setReload(true)); 
     }
 
     function handleClearField(e) {
@@ -72,7 +80,7 @@ export function Post() {
           {data.content}
         </p>
         <CommentMapper comments={data.comments} />
-        <CommentForm />
+        <CommentForm setReload={setReload}/>
       </div>
     )
   )

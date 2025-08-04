@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { LinkButton } from "../../utilities/linkButton";
 import { Authorization } from "../../utilities/authProvider";
@@ -12,7 +12,7 @@ export default function HomePage() {
     <div className={styles.homeCont}>
       user: {user && user.first_name}
       <Header />
-      <Outlet context={{ user }}/>
+      <Outlet context={{ user }} />
       <LinkButton url={"/admin"} text={"Admin portal"} />
     </div>
   );
