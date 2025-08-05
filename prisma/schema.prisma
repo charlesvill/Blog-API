@@ -21,7 +21,7 @@ model User {
   hash       String
   posts      Post[]
   comments   Comment[]
-  Like       Like[]
+  likes       Like[]
 }
 
 model Post {
@@ -49,10 +49,10 @@ model Comment {
 }
 
 model Like {
-  id      Int      @id @default(autoincrement())
   like_at DateTime @default(now())
-  User    User     @relation(fields: [user_id], references: id)
+  user    User     @relation(fields: [user_id], references: id)
   user_id Int
-  Post    Post     @relation(fields: [post_id], references: id)
+  post    Post     @relation(fields: [post_id], references: id)
   post_id Int
+  @@id(name: "likeId", [user_id, post_id]) 
 }

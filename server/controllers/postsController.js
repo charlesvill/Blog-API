@@ -101,10 +101,10 @@ async function deleteComment(req, res, next) {
 
   res.send(
     "delete a comment on the " +
-      postId +
-      "post id and " +
-      commentId +
-      "comment id",
+    postId +
+    "post id and " +
+    commentId +
+    "comment id",
   );
 }
 
@@ -128,7 +128,6 @@ async function getAllPostsByUserId(req, res, next) {
 }
 
 async function createPost(req, res, next) {
-  console.log("coming live from the post a blog router!");
 
   const { title, content, img_url } = req.body;
   const userId = req.params.userid;
@@ -216,15 +215,74 @@ async function togglePublishPost(req, res, next) {
   }
 }
 
+async function toggleLike(req, res, next) {
+  const postId = req.params.postid;
+  const userId = req.params.userid;
+
+  // first see if its been liked
+  try {
+    const response = await prisma.like.findUnique({
+      where: {
+        likeId: {
+          post_id: Number(postId),
+          user_id: Number(userId),
+        },
+      },
+    });
+    if (response) {
+      // if found: 
+      // like.delete where user id && post id match     
+      const response = await prisma.like.delete({
+        where: {
+          likeId: {
+            post_id: Number(postId),
+            user_id: Number(userId),
+
+          },
+        },
+      });
+      console.log("Like was toggled off");
+      res.json(response);
+    } else {
+      const response = await prisma.like.create({
+        data: {
+          post: {
+            connect: {
+              id: Number(postId),
+            },
+          },
+          user: {
+            connect: {
+              id: Number(userId),
+            },
+          },
+        },
+      });
+      console.log("like was toggled on!");
+      res.json(response);
+    }
+  } catch (err) {
+    return next(new InternalServerError(err.message));
+  }
+}
+
 async function deletePost(req, res, next) {
   const postId = req.params.postid;
 
+  // will have to come in here and refactor for the likes as well
   try {
     const response = await prisma.comment
       .deleteMany({
         where: {
           post_id: Number(postId),
         },
+      })
+      .then(async () => {
+        const response = await prisma.like.deleteMany({
+          where: {
+            post_id: Number(postId),
+          },
+        });
       })
       .then(async () => {
         const response = await prisma.post.delete({
@@ -251,5 +309,6 @@ module.exports = {
   createPost,
   updatePost,
   togglePublishPost,
+  toggleLike,
   deletePost,
 };

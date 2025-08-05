@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useFetchData } from "../../utilities/useFetchData"
-import { serverHostName } from "../../utilities/apiUtils";
+import { serverHostName, apiFetch } from "../../utilities/apiUtils";
 import { useParams } from "react-router-dom";
 import { Authorization } from "../../utilities/authProvider";
 import { CommentForm } from "./comments/commentForm";
@@ -26,10 +26,23 @@ export function Post() {
 
   const { data } = useFetchData(url, reload);
 
+  async function handleLike(){
+    const url = serverHostName() + `/posts/${postid}/like/${user.id}`;
+    const response = await apiFetch(
+      url,
+      token,
+      null,
+      "PUT",
+    );
+    // should be some visual toggle for like
+    // toggle
+  }
+
   return (
     data && (
       <div>
         <h2>{data.title}</h2>
+        <button onClick={handleLike}>Like</button>
         <img src={data.img_url} alt={`image for ${data.title}`} />
         <p>
           {data.content}

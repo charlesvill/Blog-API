@@ -8,6 +8,7 @@ const {
   createPost,
   updatePost,
   togglePublishPost,
+  toggleLike,
   deletePost,
 } = require("../controllers/postsController.js");
 
@@ -33,6 +34,8 @@ postRouter.post("/:userid", createPost);
 postRouter.put("/:postid", updatePost);
 
 postRouter.put("/:postid/publish", togglePublishPost);
+
+postRouter.put("/:postid/like/:userid", toggleLike);
 
 postRouter.delete("/:postid", deletePost);
 
