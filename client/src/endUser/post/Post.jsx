@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { Authorization } from "../../utilities/authProvider";
 import { CommentForm } from "./comments/commentForm";
 import { CommentMapper } from "./comments/commentMapper";
+import styles from "./Post.module.css";
 
 // heading, image frame, content
 // comments mapper component
@@ -40,9 +41,9 @@ export function Post() {
 
   return (
     data && (
-      <div>
+      <div className={styles.postContainer}>
         <h2>{data.title}</h2>
-        <button onClick={handleLike}>Like</button>
+        {user && <button onClick={handleLike}>Like</button>}
         <img src={data.img_url} alt={`image for ${data.title}`} />
         <p>
           {data.content}

@@ -16,12 +16,12 @@ export function UserNav({ name }) {
   }
 
   return (
-    <nav>
+    <nav className={styles.navContainer}>
       <h3 onClick={handleToggle} className={styles.userName}>
         {name}
       </h3>
       {modalActive && (
-        <div>
+        <div className={styles.linkContainer}>
           <LinkButton url={"/admin"} text={"Author's Dashboard"} />
           <LinkButton url={"/logout"} text={"Logout"} />
         </div>

@@ -13,12 +13,14 @@ export function FeedPostBadge({ data }) {
   }
 
   return (
-    <div onClick={handlePostClick} className={styles.dataContainer}>
+    <div onClick={handlePostClick} className={styles.postContainer}>
       {data.img_url && (
         <img src={data.img_url} alt={`image for ${data.title}`} />
       )}
-      <h3>{data.title}</h3>
-      <p>{data.content.substring(0, previewLength)}</p>
+      <div className={styles.postText}>
+        <h3>{data.title}</h3>
+        <p>{data.content.substring(0, previewLength)}</p>
+      </div>
     </div>
   );
 }

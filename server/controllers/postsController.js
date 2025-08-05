@@ -4,18 +4,20 @@ const prisma = require("../../prisma/prisma");
 async function getAllPosts(req, res, next) {
   // should output the first 10 posts
   // case: /posts?popular=true ->
-  const featPopular = req.params.popular === "true";
+  const featPopular = req.query.popular === "true";
 
   try {
     let response;
 
-    if (featPopular) {
+    if (!featPopular) {
+      console.log("regular feed to be posted");
       response = await prisma.post.findMany({
         take: 10,
       });
     } else {
+      console.log("there should be a popular posts being sent");
       response = await prisma.post.findMany({
-        take: 10,
+        take: 3,
         orderBy: {
           likes: {
             _count: "desc",

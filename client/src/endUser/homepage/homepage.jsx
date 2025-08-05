@@ -10,10 +10,8 @@ export default function HomePage() {
 
   return (
     <div className={styles.homeCont}>
-      user: {user && user.first_name}
       <Header />
       <Outlet context={{ user }} />
-      <LinkButton url={"/admin"} text={"Admin portal"} />
     </div>
   );
 }
