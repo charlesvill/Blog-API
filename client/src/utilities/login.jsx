@@ -13,6 +13,10 @@ export const Login = () => {
       navigate(path, { replace: true });
       setPath(null);
     }
+    if(user && !path){
+      navigate("/", {replace: true});
+    }
+
   }, [user, path])
 
   function handleUpdate(e) {
