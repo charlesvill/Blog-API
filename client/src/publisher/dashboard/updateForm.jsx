@@ -4,6 +4,7 @@ import { PostFormFields } from "./postFormFields";
 import { useParams } from "react-router-dom";
 import { useFetchData } from "../../utilities/useFetchData";
 import { serverHostName } from "../../utilities/apiUtils";
+import styles from "./postForm.module.css";
 
 export function UpdatePostForm() {
   const { postid } = useParams();
@@ -14,8 +15,8 @@ export function UpdatePostForm() {
   return (
     data && (
       <div>
-        <form>
-          <PostFormFields httpMethod="PUT" id={postid} initData={data}  />
+        <form className={styles.parentContainer}>
+          <PostFormFields httpMethod="PUT" id={postid} initData={data} />
         </form>
       </div>
     )
