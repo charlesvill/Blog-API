@@ -1,0 +1,4 @@
+.postCollection {
+  display: flex;
+  flex-wrap: wrap;
+}

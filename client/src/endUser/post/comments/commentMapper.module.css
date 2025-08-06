@@ -4,6 +4,8 @@
   background-color: #222222;
   padding: .8rem;
   margin: .5rem auto;
+  min-width: 80%;
+  max-width: 90%;
 }
 .commentContainer {
   display: flex;
@@ -14,12 +16,14 @@
 .content {
   color: darkgrey;
 }
+
 .metadata {
 
   display: flex;
-  color: #333333;
+  color: #444444;
   font-size: .8rem;
 }
+
 .author {
   background-color: #242424;
   opacity: .8;
@@ -28,7 +32,7 @@
   margin: .1rem;
 }
 .publishedText {
-  opacity: .5;
+
 }
 
 

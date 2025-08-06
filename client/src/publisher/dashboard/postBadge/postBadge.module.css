@@ -1,9 +1,9 @@
 .projectContainer {
+  width: clamp(200px,  35%, 100%);
   background-color: var(--background-color-light);
   color: black;
-  justify-self: stretch;
-  align-self: stretch;
   border-radius: 8px;
+  margin: 0.8rem;
   padding: 1.5rem;
   padding-top: 1.5rem;
   padding-left: 2rem;

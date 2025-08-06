@@ -6,6 +6,14 @@
   flex-direction: column;
 }
 
+.iconContainer {
+  display: flex;
+  margin-right: .3rem;
+  align-items: center;
+}
+.iconContainer > svg {
+  height: 1.5rem;
+}
 .profileWrapper {
   display: flex;
   justify-content: flex-end;

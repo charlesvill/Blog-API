@@ -47,7 +47,7 @@ export function CommentForm({ setReload, postid, user, token }) {
   }
   return (
     user ? (
-      <form>
+      <form className={styles.commentForm}>
         <label htmlFor="content">Leave a comment</label>
         <textarea id="content" cols={80} rows={5} value={commentField.content || ""} onChange={handleInput}></textarea>
         <div>

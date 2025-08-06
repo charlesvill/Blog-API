@@ -25,11 +25,9 @@ export const Dashboard = () => {
   return (
     !loading && (
       <div className={styles.dashCont}>
-        dashboard container
         <SideNav />
-        <Header />
+        <Header user={user}/>
         <div className={styles.contentCont}>
-          content container
           <Outlet context={{ data, setReload }} />
         </div>
       </div>

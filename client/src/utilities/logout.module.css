@@ -1,0 +1,17 @@
+.parentContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: 40rem;
+  height: 20rem;
+  border: 2px solid;
+
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  margin: .5rem;
+}

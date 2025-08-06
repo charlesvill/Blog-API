@@ -9,6 +9,9 @@
   display: flex;
   gap: .3rem;
 }
+.headerContainer:hover{
+  cursor:pointer;
+}
 
 .linkContainer {
   margin-bottom: 2.5rem;
@@ -17,6 +20,9 @@
 .link {
   display: flex;
   gap: .5rem;
+}
+.link:hover {
+  cursor: pointer;
 }
 .link > svg {
   width: 1.3rem;
