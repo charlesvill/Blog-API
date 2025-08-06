@@ -40,8 +40,30 @@ async function getPostByPostId(req, res, next) {
       where: {
         id: Number(postId),
       },
-      include: {
-        comments: true,
+      select: {
+        id: true,
+        title: true,
+        content: true,
+        img_url: true,
+        published_at: true,
+        comments: {
+          select: {
+            content: true,
+            published_at: true,
+            author: {
+              select: {
+                username: true,
+              },
+            },
+          },
+
+        },
+        author: {
+          select: {
+            id: true,
+            username: true,
+          }
+        }
       },
     });
 

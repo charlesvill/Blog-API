@@ -1,0 +1,35 @@
+.commentCollection{
+  display: flex;
+  flex-direction: column;
+  background-color: #222222;
+  padding: .8rem;
+  margin: .5rem auto;
+}
+.commentContainer {
+  display: flex;
+  flex-direction: column;
+  padding: .5rem;
+}
+
+.content {
+  color: darkgrey;
+}
+.metadata {
+
+  display: flex;
+  color: #333333;
+  font-size: .8rem;
+}
+.author {
+  background-color: #242424;
+  opacity: .8;
+  border-radius: 5px;
+  padding: .1rem;
+  margin: .1rem;
+}
+.publishedText {
+  opacity: .5;
+}
+
+
+

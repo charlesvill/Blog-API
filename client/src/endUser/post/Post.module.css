@@ -1,3 +1,15 @@
 .postContainer {
   display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.postContainer > img {
+  width: 80%;
+
+}
+
+.postContainer > hr {
+  height: 1px;
+  width: 80%;
+  margin: 2 rem auto;
 }

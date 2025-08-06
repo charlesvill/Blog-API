@@ -27,6 +27,7 @@ export function Post() {
 
   const { data } = useFetchData(url, reload);
 
+  console.log(data);
   async function handleLike(){
     const url = serverHostName() + `/posts/${postid}/like/${user.id}`;
     const response = await apiFetch(
@@ -48,6 +49,7 @@ export function Post() {
         <p>
           {data.content}
         </p>
+        <hr/>
         <CommentMapper comments={data.comments} />
         <CommentForm setReload={setReload} postid={postid} user={user} token={token} />
       </div>
