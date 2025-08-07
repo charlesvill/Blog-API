@@ -2,7 +2,7 @@ const express = require("express");
 require("dotenv").config();
 const cors = require("cors");
 
-const PORT = process.env.SERVER_PORT || 5000;
+const PORT = process.env.PORT || 5000;
 const path = require("path");
 const passport = require("./authentication/passport-config.js");
 const { NotFoundError } = require("./utils/err.js");
