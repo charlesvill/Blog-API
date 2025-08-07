@@ -4,7 +4,7 @@ import styles from "./feedPostBadge.module.css";
 
 export function FeedPostBadge({ data }) {
   const navigate = useNavigate();
-  const previewLength = 20;
+  const previewLength = 35;
 
   console.log(data);
   function handlePostClick(e) {

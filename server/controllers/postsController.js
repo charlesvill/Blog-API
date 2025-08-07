@@ -13,11 +13,17 @@ async function getAllPosts(req, res, next) {
       console.log("regular feed to be posted");
       response = await prisma.post.findMany({
         take: 10,
+        where: {
+          published: true,
+        },
       });
     } else {
       console.log("there should be a popular posts being sent");
       response = await prisma.post.findMany({
         take: 3,
+        where: {
+          published: true,
+        },
         orderBy: {
           likes: {
             _count: "desc",
@@ -56,14 +62,13 @@ async function getPostByPostId(req, res, next) {
               },
             },
           },
-
         },
         author: {
           select: {
             id: true,
             username: true,
-          }
-        }
+          },
+        },
       },
     });
 
@@ -152,7 +157,6 @@ async function getAllPostsByUserId(req, res, next) {
 }
 
 async function createPost(req, res, next) {
-
   const { title, content, img_url } = req.body;
   const userId = req.params.userid;
 
@@ -254,14 +258,13 @@ async function toggleLike(req, res, next) {
       },
     });
     if (response) {
-      // if found: 
-      // like.delete where user id && post id match     
+      // if found:
+      // like.delete where user id && post id match
       const response = await prisma.like.delete({
         where: {
           likeId: {
             post_id: Number(postId),
             user_id: Number(userId),
-
           },
         },
       });

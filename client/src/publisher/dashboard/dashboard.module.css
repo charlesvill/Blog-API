@@ -23,7 +23,7 @@
   background-color: #e2e8f0;
   color: grey;
   justify-self: stretch;
-  margin: .5rem;
+  margin: 0.5rem;
   align-self: stretch;
   border-radius: 8px;
   padding: 1.5rem;
@@ -33,16 +33,13 @@
   flex-direction: column;
   justify-content: space-between;
   border-left: 9px solid #967bb6;
-  box-shadow:
-    0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
+  box-shadow: 0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
 }
-
 
 .projectButtonCont {
   display: flex;
-
 }
 
-.projectButtonCont>svg {
+.projectButtonCont > svg {
   width: 1.3rem;
 }

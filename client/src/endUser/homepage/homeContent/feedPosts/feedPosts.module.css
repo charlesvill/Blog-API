@@ -17,7 +17,6 @@
 .feed {
   margin-top: 1rem;
   display: flex;
-  height: 500px;
   flex-direction: column;
   width: 80%;
   align-items: center;
