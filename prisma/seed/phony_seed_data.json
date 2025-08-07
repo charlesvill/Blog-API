@@ -155,19 +155,19 @@
   ],
   "likes": [
     {
-      "user_id": 8,
-      "post_id": 1,
+      "user_id": 3,
+      "post_id": 4,
       "like_at": "2025-07-27T21:23:52"
     },
     {
-      "user_id": 7,
+      "user_id": 2,
       "post_id": 3,
       "like_at": "2025-08-04T22:29:48"
     },
     {
-      "user_id": 10,
-      "post_id": 3,
+      "user_id": 4,
+      "post_id": 5,
       "like_at": "2025-07-24T07:36:31"
     }
-  ],
+  ]
 }

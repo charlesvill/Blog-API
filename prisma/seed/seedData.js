@@ -1,11 +1,12 @@
 const fs = require("fs");
+const path = require("path");
+const jsonPath = path.join(__dirname, "phony_seed_data.json");
+
 const prisma = require("../prisma");
 const { InternalServerError } = require("../../server/utils/err");
 
-const rawJSON = fs.readFileSync("./phony_seed_data.json", "utf8");
+const rawJSON = fs.readFileSync(jsonPath, "utf8");
 const data = JSON.parse(rawJSON);
-
-console.log(data);
 
 async function seedUsers() {
   const users = data.users;
@@ -13,10 +14,11 @@ async function seedUsers() {
     const response = await prisma.user
       .createMany({
         data: users,
+        skipDuplicates: true,
       })
       .then((response) => console.log(response));
   } catch (err) {
-    console.error(InternalServerError(err.message + "error seeding users"));
+    console.error(new InternalServerError(err.message + "error seeding users"));
     return;
   }
 }
@@ -37,8 +39,8 @@ async function seedPosts() {
                 id: Number(post.author_id),
               },
             },
-            published_at: post.published_at,
-            updated_at: post.updated_at,
+            published_at:new Date(post.published_at).toISOString() ,
+            updated_at: new Date(post.updated_at).toISOString(),
           },
           include: {
             author: true,
@@ -47,7 +49,7 @@ async function seedPosts() {
       ),
     ).then(() => console.log("posts have finished seeding"));
   } catch (err) {
-    console.error(InternalServerError(err.message + "error seeding Posts"));
+    console.error(new InternalServerError(err.message + "error seeding Posts"));
     return;
   }
 }
@@ -59,7 +61,7 @@ async function seedLikes() {
       likes.map((like) =>
         prisma.like.create({
           data: {
-            like_at: like.like_at,
+            like_at: new Date(like.like_at).toISOString(),
             user: {
               connect: {
                 id: like.user_id,
@@ -70,6 +72,7 @@ async function seedLikes() {
                 id: like.post_id,
               },
             },
+            
           },
           include: {
             post: true,
@@ -79,7 +82,7 @@ async function seedLikes() {
       ),
     ).then(() => console.log("likes have finished seeding"));
   } catch (err) {
-    console.error(InternalServerError(err.message + "error seeding likes"));
+    console.error(new InternalServerError(err.message + "error seeding likes"));
     return;
   }
 }
@@ -94,4 +97,4 @@ async function seedDb() {
   console.log("db should have data");
 }
 
-module.exports = seedDb;
+seedDb();
