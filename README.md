@@ -5,4 +5,4 @@ Full Stack blog site featuring:
 - Passport for server side Authentication
 - JSON Web Token for auth on protected routes
 
-####Live Preview : https://blog-odin.netlify.app/
+#### Live Preview : https://blog-odin.netlify.app/
