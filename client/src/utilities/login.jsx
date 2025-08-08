@@ -2,6 +2,7 @@ import { useEffect, useContext, useState } from "react"
 import { useNavigate } from "react-router-dom";
 import { Authorization } from "../utilities/authProvider";
 import { LinkButton } from "./linkButton";
+import { serverHostName } from "./apiUtils";
 import styles from "./logout.module.css";
 
 export const Login = () => {
@@ -31,7 +32,7 @@ export const Login = () => {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const url = import.meta.env.VITE_LOCAL_LOGIN;
+    const url = serverHostName() + "/log-in";
 
     const response = await login(url, userInput);
 

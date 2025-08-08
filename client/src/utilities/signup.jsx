@@ -2,11 +2,12 @@ import { apiFetch, clientHostName } from "./apiUtils";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Header } from "../endUser/header/clientHeader";
+import { serverHostName } from "./apiUtils";
 import styles from "./logout.module.css";
 
 export function SignUp() {
   const [userInput, setUserInput] = useState({});
-  const createUserUrl = import.meta.env.VITE_LOCAL_GET_USER;
+  const createUserUrl = serverHostName() + "/users";
   const navigate = useNavigate();
 
   function handleUpdate(e) {

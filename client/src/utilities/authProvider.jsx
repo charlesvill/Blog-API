@@ -1,8 +1,7 @@
-import { useState, createContext, useEffect, useMemo } from 'react'
-import { apiFetch } from './apiUtils';
+import { useState, createContext, useEffect, useMemo } from "react";
+import { apiFetch, serverHostName } from "./apiUtils";
 
 export const Authorization = createContext();
-
 
 export function AuthProvider({ children }) {
   const [token, setToken] = useState(localStorage.getItem("token") || "");
@@ -13,7 +12,7 @@ export function AuthProvider({ children }) {
   const [initializing, setInitializing] = useState(true);
   const [error, setError] = useState(null);
 
-  const getUserUrl = import.meta.env.VITE_LOCAL_GET_USER;
+  const getUserUrl = serverHostName() + "/users";
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,9 +20,9 @@ export function AuthProvider({ children }) {
         const response = await fetch(getUserUrl, {
           method: "GET",
           headers: {
-            "Authorization": `Bearer ${token}`,
+            Authorization: `Bearer ${token}`,
           },
-          mode: 'cors',
+          mode: "cors",
         });
 
         if (!response.ok) {
@@ -45,7 +44,7 @@ export function AuthProvider({ children }) {
         setUser(json);
         setLoading(false);
         setInitializing(false);
-        setError(null)
+        setError(null);
         localStorage.setItem("token", token);
       } catch (err) {
         console.error("Fetch error:", err);
@@ -59,27 +58,24 @@ export function AuthProvider({ children }) {
   }, [token]);
 
   const login = async (url, data) => {
-      setLoading(true);
-      const response = await apiFetch(
-        url,
-        null,
-        data,
-        "POST",
-      );
+    setLoading(true);
+    const response = await apiFetch(url, null, data, "POST");
 
-    if(response instanceof Error){
-
-      const errMsg = response.message === "400" ? "Username or password incorrect" : "Other Error Occurred";
+    if (response instanceof Error) {
+      const errMsg =
+        response.message === "400"
+          ? "Username or password incorrect"
+          : "Other Error Occurred";
       logOut();
       setError(errMsg);
       setLoading(false);
       return new Error(errMsg);
     }
 
-      setToken(response.token);
-      setUser(response.user);
-      setLoading(false);
-  }
+    setToken(response.token);
+    setUser(response.user);
+    setLoading(false);
+  };
 
   const logOut = () => {
     localStorage.removeItem("token");
@@ -87,12 +83,27 @@ export function AuthProvider({ children }) {
     setUser(null);
     // redirect or navigate?
     return;
-  }
+  };
 
-  const authContextValue = useMemo(() => ({
-    user, path, setPath, mode, token, setToken, login, logOut, loading, setLoading, initializing, setInitializing, error, setError
-  }), [user, path, mode, token, loading, initializing, error]);
-
+  const authContextValue = useMemo(
+    () => ({
+      user,
+      path,
+      setPath,
+      mode,
+      token,
+      setToken,
+      login,
+      logOut,
+      loading,
+      setLoading,
+      initializing,
+      setInitializing,
+      error,
+      setError,
+    }),
+    [user, path, mode, token, loading, initializing, error],
+  );
 
   return (
     <>
@@ -100,5 +111,5 @@ export function AuthProvider({ children }) {
         {!loading && children}
       </Authorization.Provider>
     </>
-  )
+  );
 }
