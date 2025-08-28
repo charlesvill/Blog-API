@@ -9,6 +9,8 @@ Technology featured:
 
 #### Live Preview : https://blog-odin.netlify.app/
 
-*example user* \n
-email: charlesvill \n
+*example user*
+
+email: charlesvill 
+
 password: 1234
