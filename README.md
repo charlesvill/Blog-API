@@ -1,8 +1,14 @@
-Full Stack blog site featuring: 
-- React Front end
-- Express RESTish API
+Full Stack blog site where members can create, read, like, and delete posts. 
+
+Technology featured:
+- React 
+- Express REST API
 - Postgres Database
-- Passport for server side Authentication
-- JSON Web Token for auth on protected routes
+- Passport Server Side Authentication
+- JSON Web Tokens
 
 #### Live Preview : https://blog-odin.netlify.app/
+
+*example user*
+email: charlesvill
+password: 1234
