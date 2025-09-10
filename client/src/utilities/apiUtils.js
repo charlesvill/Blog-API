@@ -47,5 +47,6 @@ export function serverHostName() {
   if (import.meta.env.MODE === "development") {
     return "http://localhost:5000";
   }
+  console.log('remoteHost: ', import.meta.env.VITE_REMOTE_HOST);
   return import.meta.env.VITE_REMOTE_HOST;
 }
