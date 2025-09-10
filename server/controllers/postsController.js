@@ -130,10 +130,10 @@ async function deleteComment(req, res, next) {
 
   res.send(
     "delete a comment on the " +
-    postId +
-    "post id and " +
-    commentId +
-    "comment id",
+      postId +
+      "post id and " +
+      commentId +
+      "comment id",
   );
 }
 

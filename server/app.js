@@ -13,11 +13,27 @@ const userRouter = require("./routes/users.js");
 const app = express();
 const assetsPath = path.join(__dirname, "public");
 
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://blog-odin.netlify.app",
+];
+
 app.use(express.static(assetsPath));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(passport.initialize());
-app.use(cors());
+app.use(
+  cors({
+    origin: function(origin, callback) {
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+      return callback(new Error("Not allowed by CORS"));
+    },
+    credentials: true,
+  }),
+);
 
 app.get("/", (req, res) => {
   res.json({
@@ -30,14 +46,15 @@ app.use("/users", userRouter);
 
 app.use("/posts", postRouter);
 
-
 app.use((req, res, next) => {
   return next(new NotFoundError(`404: Not Found! path: ${req.path}`));
 });
 
 app.use((err, req, res, next) => {
   console.error(err);
-  res.status(err.statusCode || 500).send(err.name + " " + err.statusCode + ": " + err.message);
+  res
+    .status(err.statusCode || 500)
+    .send(err.name + " " + err.statusCode + ": " + err.message);
 });
 
 app.listen(PORT, () => {

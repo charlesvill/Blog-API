@@ -39,7 +39,7 @@ async function seedPosts() {
                 id: Number(post.author_id),
               },
             },
-            published_at:new Date(post.published_at).toISOString() ,
+            published_at: new Date(post.published_at).toISOString(),
             updated_at: new Date(post.updated_at).toISOString(),
           },
           include: {
@@ -72,7 +72,6 @@ async function seedLikes() {
                 id: like.post_id,
               },
             },
-            
           },
           include: {
             post: true,
