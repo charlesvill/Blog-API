@@ -5,9 +5,9 @@ export const Header = ({ user, toggleNav }) => {
   return (
     <div className={styles.headerCont}>
       <div className={styles.profileWrapper}>
-        <div className={styles.showNavBtn}>
-          <button onClick={toggleNav}>☰</button>
-        </div>
+        <button className={styles.showNavBtn} onClick={toggleNav}>
+          ☰
+        </button>
         <div className={styles.profileContainer}>
           <span className={styles.iconContainer}>
             <svg
@@ -25,7 +25,7 @@ export const Header = ({ user, toggleNav }) => {
       <div className={styles.greetingWrapper}>
         <div className={styles.greetingContainer}>
           <div>
-            <h4 className={styles.greeting}>Good Morning,</h4>
+            <h4 className={styles.greeting}>Good Day,</h4>
             <p>
               <span className={styles.name}>{user.first_name}</span>{" "}
               <span>(@{user.username})</span>

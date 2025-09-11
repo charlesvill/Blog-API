@@ -20,6 +20,10 @@
 }
 .showNavBtn {
   display: none;
+  border: none;
+  background: none;
+  padding: .5rem;
+  margin: 0;
 }
 .profileContainer {
   display: flex;
@@ -45,7 +49,11 @@
   .headerCont {
     grid-column: 1 / 5;
   }
+  .profileWrapper {
+    justify-content: flex-start;
+  }
   .showNavBtn{
     display: inline-block;
   }
+
 }

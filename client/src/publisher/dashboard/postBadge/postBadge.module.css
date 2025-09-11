@@ -1,5 +1,5 @@
 .projectContainer {
-  width: clamp(200px,  35%, 100%);
+  width: clamp(250px,  35%, 100%);
   background-color: var(--background-color-light);
   color: black;
   border-radius: 8px;
