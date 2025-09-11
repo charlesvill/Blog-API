@@ -1,19 +1,13 @@
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
 export function LinkButton({ url, text }) {
-
-console.log("url to redirect to: ", url);
+  console.log("url to redirect to: ", url);
 
   const navigate = useNavigate();
 
   function handleNav() {
-    navigate(url, { replace: true });
+    navigate(url);
   }
 
-  return (
-    <button onClick={handleNav}>
-      {text}
-    </button>
-  );
+  return <button onClick={handleNav}>{text}</button>;
 }
-

@@ -11,8 +11,7 @@ export function HomeContent() {
   return (
     <div className={styles.contentCont}>
       <PostMapper url={popularUrl} className={"featured"} title={"Featured Posts"} />
-      <section></section>
-      <PostMapper url={feedUrl} className={"feed"} />
+      <PostMapper url={feedUrl} className={"feed"} title={"Your Feed"} />
     </div>
   );
 }
