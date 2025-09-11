@@ -12,6 +12,7 @@ import { useFetchData } from "../../utilities/useFetchData.jsx";
 export const Dashboard = () => {
   const { user } = useContext(Authorization);
   const [shouldReload, setReload] = useState(false);
+  const [showNav, setShowNav] = useState(false);
   const url = serverHostName() + "/posts/user/" + user.id;
 
   const { data, loading, error } = useFetchData(url, shouldReload);
@@ -22,11 +23,20 @@ export const Dashboard = () => {
     }
   }, [shouldReload]);
 
+  function toggleNav() {
+    console.log("current state of sideNav: ", showNav);
+    if (showNav) {
+      setShowNav(false);
+      return;
+    }
+    setShowNav(true);
+  }
+
   return (
     !loading && (
       <div className={styles.dashCont}>
-        <SideNav />
-        <Header user={user}/>
+        <SideNav showNav={showNav} toggleNav={toggleNav} />
+        <Header user={user} toggleNav={toggleNav} />
         <div className={styles.contentCont}>
           <Outlet context={{ data, setReload }} />
         </div>

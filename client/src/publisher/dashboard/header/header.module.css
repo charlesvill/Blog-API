@@ -2,13 +2,13 @@
   grid-column: 2 / 5;
   grid-row: 1 / 2;
   border: white solid 1px;
-  display:flex;
+  display: flex;
   flex-direction: column;
 }
 
 .iconContainer {
   display: flex;
-  margin-right: .3rem;
+  margin-right: 0.3rem;
   align-items: center;
 }
 .iconContainer > svg {
@@ -17,6 +17,9 @@
 .profileWrapper {
   display: flex;
   justify-content: flex-end;
+}
+.showNavBtn {
+  display: none;
 }
 .profileContainer {
   display: flex;
@@ -37,4 +40,12 @@
 .name {
   font-size: 1.5rem;
   font-weight: bold;
+}
+@media (max-width: 768px) {
+  .headerCont {
+    grid-column: 1 / 5;
+  }
+  .showNavBtn{
+    display: inline-block;
+  }
 }

@@ -5,6 +5,7 @@
   grid-template-columns: 1fr 3fr 1fr;
   grid-template-rows: 1fr 4fr;
   background-color: grey;
+  position: relative;
 }
 
 .contentCont {
@@ -42,4 +43,10 @@
 
 .projectButtonCont > svg {
   width: 1.3rem;
+}
+
+@media (max-width: 768px) {
+  .contentCont {
+    grid-column: 1 / 4;
+  }
 }

@@ -1,10 +1,13 @@
 import styles from "./header.module.css";
 import { LinkButton } from "../../../utilities/linkButton";
 
-export const Header = ({ user }) => {
+export const Header = ({ user, toggleNav }) => {
   return (
     <div className={styles.headerCont}>
       <div className={styles.profileWrapper}>
+        <div className={styles.showNavBtn}>
+          <button onClick={toggleNav}>☰</button>
+        </div>
         <div className={styles.profileContainer}>
           <span className={styles.iconContainer}>
             <svg
