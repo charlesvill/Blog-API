@@ -45,3 +45,9 @@
 .projectButton:hover {
   fill-opacity: 15%;
 }
+
+@media(max-width: 768px){
+  .projectButtonCont > svg {
+    max-width: 1.2rem;
+  }
+}
